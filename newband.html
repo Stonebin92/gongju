@@ -1,0 +1,2179 @@
+<!-- 品牌 -->
+<div class="page-wrapperbox" id="{{.GUID}}">
+	<!-- 左边品牌列表 -->
+	<div class="leftbar">
+		<!-- 树形架构 -->
+		<div class="widgets-tree bigdata-tree">
+			<ul data-bind="visible:CtrlView.StairCategoryAddView()">
+				<li>
+					<a class=" tree-edit">
+						<span class="tree-editinput">
+							<input type="text"  placeholder="新增一级类目" data-bind="textInput:CtrlData.CategoryAdd().Name,event: {change:EventSaveStairCategory}" autofocus/>
+						</span>
+					</a>
+				</li>
+			</ul>
+			<ul data-bind="foreach:CtrlData.category">
+				<li>
+					<a class="nol"  data-bind="css:{'tree-parent':$root.CtrlView.UpdateCategoryView()!=$data.ID,'tree-edit':$root.CtrlView.UpdateCategoryView()==$data.ID},click:$root.EventSelCategory,clickBubble:false">
+						<label class="redtips right" data-bind="text:($root.ApproveBrand_i[$data.ID]()+$root.ApproveAttr_i[$data.ID]()),visible:($root.ApproveBrand_i[$data.ID]()+$root.ApproveAttr_i[$data.ID]())!=0" title="待审核品牌数">10</label>
+						<button class="right ic-delbtn" title="删除" data-bind="click:$root.EventDelStairCategory,clickBubble:false,visible:$data.UI_Children().length==0"></button>
+						<button class="right ic-editbtn" title="编辑" data-bind="click:$root.EventUpdateCategoryView,clickBubble:false,visible:$data.UI_Children().length==0"></button>
+						<button class="right ic-addbtn" title="添加" data-bind="click:$root.EventAddCategoryChild,clickBubble:false"></button>
+						<button class="left ic-spinkbtn " data-bind="css:{'ic-treearrowopen':$data.UI_Expand(),' ic-treearrowclose':!$data.UI_Expand()},click:$root.EventExpand"></button><!--ic-treearrowopen打开,ic-treearrowclose收缩,ic-spinkbtn没有箭头-->
+						<span data-bind="text:$data.UI_Name()">Isabel Lu</span>
+						<span class="tree-editinput">
+							<input type="text" data-bind="textInput:$data.UI_Name(),event:{change:$root.EventUpdateCategory}"/>
+						</span>
+					</a>
+					<ul data-bind="visible:$data.ID==$root.CtrlView.IsDisplay()">
+						<li>
+							<a class=" tree-edit">
+								<span class="tree-editinput">
+									<input type="text"  placeholder="新增二级类目" data-bind="textInput:$root.CtrlData.CategoryAdd().Name,event:{change:function(m,e){$root.EventSaveCategoryChild(m,e,$parent)}}" autofocus/>
+								</span>
+							</a>
+						</li>
+					</ul>
+					<ul data-bind="foreach:$data.UI_Children,visible:$data.UI_Expand()">
+						<li>
+							<a class="nol" data-bind="css:{'tree-parent':$root.CtrlView.UpdateCategoryView()!=$data.ID,'tree-edit':$root.CtrlView.UpdateCategoryView()==$data.ID},click:$root.EventSelCategory,clickBubble:false">
+								<label class="redtips right" data-bind="text:($root.ApproveBrand_i[$data.ID]()+$root.ApproveAttr_i[$data.ID]()),visible:($root.ApproveBrand_i[$data.ID]()+$root.ApproveAttr_i[$data.ID]())!=0">10</label>
+
+								<button class="right ic-delbtn" title="删除" data-bind="click:function(m,e){$root.EventDelChildCategory(m,e,$parent)},visible:$data.UI_Children().length==0"></button>
+								<button class="right ic-editbtn" title="编辑" data-bind="click:$root.EventUpdateCategoryView,clickBubble:false,visible:$data.UI_Children().length==0"></button>
+								<button class="right ic-addbtn" title="添加" data-bind="click:$root.EventAddCategoryChild"></button>
+								<button class="left ic-spinkbtn" data-bind="css:{'ic-treearrowopen':$data.UI_Expand(),' ic-treearrowclose':!$data.UI_Expand()},click:$root.EventExpand"></button>
+								<span  data-bind="text:$data.UI_Name()">Uan</span>
+								<span class="tree-editinput" >
+									<input type="text" data-bind="textInput:$data.UI_Name,event:{change:function(m,e){$root.EventUpdateCategory(m,e,$parent)}}"/>
+								</span>
+							</a>
+							<ul data-bind="visible:$data.ID==$root.CtrlView.IsDisplay()">
+								<li>
+									<a class=" tree-edit">
+										<span class="tree-editinput ml0">
+											<input type="text"  placeholder="新增三级类目" data-bind="textInput:$root.CtrlData.CategoryAdd().Name,event:{change:function(m,e){$root.EventSaveCategoryChild(m,e,$parent)}}" autofocus/>
+										</span>
+									</a>
+								</li>
+							</ul>
+							<ul data-bind="foreach:$data.UI_Children,visible:$data.UI_Expand()">
+								<li>
+									<a class="nol" data-bind="css:{'tree-parent':$root.CtrlView.UpdateCategoryView()!=$data.ID,'tree-edit':$root.CtrlView.UpdateCategoryView()==$data.ID},click:$root.EventSelCategory,clickBubble:false">
+										<label class="redtips right" data-bind="text:($data.ApproveBrand().length+$data.ApproveAttr().length),visible:($data.ApproveBrand().length+$data.ApproveAttr().length)!=0">10</label>
+
+										<button class="right ic-delbtn" title="删除" style="display:none" data-bind="click:function(m,e){$root.EventDelChildCategory(m,e,$parent)},visible:$data.UI_Children().length==0&&$data.UI_EnableStatus()==0"></button>
+										<button class="right ic-editbtn" title="编辑" data-bind="click:$root.EventUpdateCategoryView,clickBubble:false,visible:$data.UI_Children().length==0"></button>
+										<button class="right ic-addbtn" title="添加" data-bind="visible:($data.UI_Children().length!=0)"></button>
+										<span class="left" data-bind="click:function(m,e){$root.EvenEnableOrNo(m,e,'category')},clickBubble:false,css:{'s-icon-ban':$data.UI_EnableStatus()!=1,'s-icon-start':$data.UI_EnableStatus()==1},attr:{'title':$data.UI_EnableStatus()==1?'禁用':'启用'}"></span>
+										<span  data-bind="text:$data.UI_Name(),visible:$root.CtrlView.UpdateCategoryView()!=$data.ID">Uansdfdsfsdfsdfdsf</span>
+										<span class="tree-editinput">
+											<input type="text" data-bind="textInput:$data.UI_Name,event:{change:function(m,e){$root.EventUpdateCategory(m,e,$parent)}}" />
+										</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+
+			</ul>
+		</div>
+		<div class="s-addbluebtn-box">
+			<a class="s-icon-addbluebtn"></a>
+			<a class="bigdata-addbluebtn s-bigdata-addbluebtn" data-bind="click:$root.EventAddStairCategory">新增一级类目</a>
+		</div>
+	</div>
+
+	<!-- 右边品牌具体内容 -->
+	<div class="rightbox s-right-box">
+		<!-- 内容开始 -->
+		<style type="text/css">
+		.mt6 {
+			margin-top: 6px!important;
+		}
+		.disabled {
+			pointer-events: none;
+			opacity: 0.5;
+		}
+		</style>
+		<!-- 品牌名 -->
+		<div class="widgets-breadcrumbs clearfix bigdata-navbread s-bigdata-navbread">
+			<ul data-bind="foreach:AttrCategory">
+	   			 <li>
+	   			 	<a href="#" data-bind="text:$data.Name">制造业</a>
+	   			 </li>
+   			 </ul>
+		</div>
+		<!-- 品牌开始 -->
+		<div class="bigdata-second-navtitle lh28">
+			<span class="caption">品牌</span>
+			<a data-bind="click: EventTypeOfChecked" id="TypeId1" class="pointer second-nav second-nav-current">内置数据/审核通过数据</a>
+			<span class="second-line">|</span>
+			<a data-bind="click: EventTypeOfUncheck" id="TypeId2" class="pointer second-nav">待审核申请</a>
+			<span data-bind="text: NumOfTips1, visible: CheckOne"  class="red-tipnum">3</span>
+		</div>
+		<div  class="bigdata-graybox clearfix min-h90">
+			<div data-bind="visible: ChooseNum1()==1" style="display: none;" class=" clearfix mb20" style=" margin-top: -5px;" >
+			  <!-- 审核按钮 -->
+			  <span data-bind="click: EventNewApproveFunc" class="left bigdata-applybtn bigdata-apply-agreebtn"  title="同意"></span>
+			  <span data-bind="click: EventNewShowRefuteFunc" class="left bigdata-applybtn bigdata-apply-rejectbtn" title="驳回" ></span>
+			</div>
+			<div data-bind="foreach:CtrlData.category">
+				<!-- 根目录内容 -->
+				<div data-bind="foreach:$data.Brand,visible:$root.ui_display()==$data.ID">
+					<div data-bind="visible: $root.ChooseNum()==1">
+						<!-- 内置数据/审核通过数据 -->
+						<div data-bind="visible:$data.UI_Status()==0||$data.UI_Status()==2 && $root.ChooseNum()==1" class="s-brand-box left">
+							<span class="left" style="display:none" data-bind="visible:$data.UI_Status()==0||$data.UI_Status()==2,click:function(m,e){$root.EvenEnableOrNo(m,e,'brand')},clickBubble:false,css:{'s-icon-ban':$data.UI_EnableStatus()!=1,'s-icon-start':$data.UI_EnableStatus()==1},attr:{'title':$data.UI_EnableStatus()==1?'禁用':'启用'}"></span>
+
+							<div class="brand-item s-brand s-addclick-bgcl-" data-bind="css:{' brand-itemapprove':$data.UI_Status()==1}"><!-- brand-itemapprove待审批状态 -->
+								<button class="ic-delbtn right" style="display: none!important;" title="删除" data-bind="visible:$data.UI_EnableStatus()===0,click:function(m,e){$root.EventDelBrand(m,e,$parent,$index)}"></button>
+
+								<div ui-approve="true"></div>
+								<div class="overflow-h">
+									<span class="txt" data-bind="text:$data.Name" style="padding: 0 2px;">爱慕</span>
+									<input type="text" data-bind="textInput:$data.Name,event:{mouseover: function(m,e){$root.EventCheckUpdate0(m,e)},change:function(m,e){$root.EventUpdateBrand(m,e,$parent)}}"/>
+								</div>
+							</div>
+							<div class="company"  data-bind="visible:$data.CompanyName()!='',text:'来自'+$data.CompanyName(),attr:{title:'所属企业：'+$data.CompanyName()}">企业</div>
+						</div>
+					</div>
+				<!-- </div>
+				<div data-bind="foreach:$data.Brand,visible:$root.ui_display()==$data.ID "> -->
+					<div data-bind="visible: $root.ChooseNum()==0">
+						<!-- 待审核的数据 -->
+						<div data-bind="visible:$data.UI_Status()==1 && $root.ChooseNum()==0" class="s-brand-box left">
+							<!-- <span class="s-icon-wait left" ui-showbrandApp="true" style="display:none" data-bind="visible:$data.UI_Status()==1,click:function(m,e){$root.EventIsShowApp(m,e,$parent,'brand',$index)},attr:{'title':'审核'}"></span> -->
+							<span data-bind="click: function(m, e){$root.EventCheckedItem(m,e,$parent,'brand',$index)}, css: {'bigdata-apply-check': $data.IsSel()}" class="bigdata-apply-uncheck left mt6"></span>
+							<!-- checkbox    bigdata-apply-uncheck 未选中    bigdata-apply-check  选中-->
+							<div class="brand-item s-brand s-addclick-bgcl-" data-bind="css:{' brand-itemapprove':$data.UI_Status()==1}"><!-- brand-itemapprove待审批状态 -->
+								<!-- <button class="ic-delbtn right" title="删除" data-bind="visible:$data.UI_EnableStatus()==0,click:function(m,e){$root.EventDelBrand(m,e,$parent,$index)}"></button> -->
+
+								<div ui-approve="true"></div>
+								<div class="overflow-h">
+									<span class="txt" data-bind="text:$data.Name" style="padding: 0 2px;color: black;">爱慕</span>
+									<!-- <input type="text" data-bind="textInput:$data.Name,event:{change:function(m,e){$root.EventUpdateBrand(m,e,$parent)}}"/> -->
+								</div>
+							</div>
+							<div class="company"  data-bind="visible:$data.CompanyName()!='',text:'来自'+$data.CompanyName(),attr:{title:'所属企业：'+$data.CompanyName()}">企业</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="brand-item" data-bind="visible:$root.CtrlView.BrandInput()==$data.ID&&$root.ChooseNum()==1">
+					<button class="ic-delbtn right" title="关闭" data-bind="click:$root.EventCloseBrandInput"></button>
+					<div class="overflow-h">
+						<span class="txt" data-bind="">爱慕</span>
+						<input type="text" data-bind="textInput:$root.CtrlData.BrandAdd().Name,event:{change:$root.EventSaveBrand},"/>
+					</div>
+				</div>
+				<a class="bigdata-addbluebtn left mt5 mb10" data-bind="visible:$root.ui_display()==$data.ID&&$root.ChooseNum()==1,click:$root.EventAddBrandView">新增品牌</a>
+
+				<!-- 二级目录内容 -->
+				<div data-bind="foreach:$data.UI_Children">
+					<div data-bind="foreach:$data.Brand,visible:$root.ui_display()==$data.ID">
+						<div data-bind="visible: $root.ChooseNum()==0">
+							<!-- 待审核的数据 -->
+							<div data-bind="visible:$data.UI_Status()==1 && $root.ChooseNum()==0" class="s-brand-box left">
+								<!-- <span class="s-icon-wait left" ui-showbrandApp="true" style="display:none" data-bind="visible:$data.UI_Status()==1,click:function(m,e){$root.EventIsShowApp(m,e,$parent,'brand',$index)},attr:{'title':'审核'}"></span> -->
+								<span data-bind="click: function(m, e){$root.EventCheckedItem(m,e,$parent,'brand',$index)}, css: {'bigdata-apply-check': $data.IsSel()}" class="bigdata-apply-uncheck left mt6"></span>
+								<!-- checkbox    bigdata-apply-uncheck 未选中    bigdata-apply-check  选中-->
+								<div class="brand-item s-brand s-addclick-bgcl-" data-bind="css:{' brand-itemapprove':$data.UI_Status()==1}"><!-- brand-itemapprove待审批状态 -->
+									<!-- <button class="ic-delbtn right" title="删除" data-bind="visible:$data.UI_EnableStatus()==0,click:function(m,e){$root.EventDelBrand(m,e,$parent,$index)}"></button> -->
+
+									<div ui-approve="true"></div>
+									<div class="overflow-h">
+										<span class="txt" data-bind="text:$data.Name" style="padding: 0 2px;color: black;">爱慕</span>
+										<!-- <input type="text" data-bind="textInput:$data.Name,event:{change:function(m,e){$root.EventUpdateBrand(m,e,$parent)}}"/> -->
+									</div>
+								</div>
+								<div class="company"  data-bind="visible:$data.CompanyName()!='',text:'来自'+$data.CompanyName(),attr:{title:'所属企业：'+$data.CompanyName()}">企业</div>
+							</div>
+						</div>
+					<!-- </div>
+					<div data-bind="foreach:$data.Brand,visible:$root.ui_display()==$data.ID"> -->
+						<div data-bind="visible: $root.ChooseNum()==1">
+							<!-- 内置数据/审核通过数据 -->
+							<div data-bind="visible:$data.UI_Status()==0||$data.UI_Status()==2 && $root.ChooseNum()==1" class="s-brand-box left">
+								<span class="left" style="display:none" data-bind="visible:$data.UI_Status()==0||$data.UI_Status()==2,click:function(m,e){$root.EvenEnableOrNo(m,e,'brand')},clickBubble:false,css:{'s-icon-ban':$data.UI_EnableStatus()!=1,'s-icon-start':$data.UI_EnableStatus()==1},attr:{'title':$data.UI_EnableStatus()==1?'禁用':'启用'}"></span>
+
+								<div class="brand-item s-brand s-addclick-bgcl-" data-bind="css:{' brand-itemapprove':$data.UI_Status()==1}"><!-- brand-itemapprove待审批状态 -->
+									<button class="ic-delbtn right" title="删除" style="display: none!important;" data-bind="visible:$data.UI_EnableStatus()===0,click:function(m,e){$root.EventDelBrand(m,e,$parent,$index)}"></button>
+
+									<div ui-approve="true"></div>
+									<div class="overflow-h">
+										<span class="txt" data-bind="text:$data.Name" style="padding: 0 2px;">爱慕</span>
+										<input type="text" data-bind="textInput:$data.Name,event:{mouseover: function(m,e){$root.EventCheckUpdate0(m,e)},change:function(m,e){$root.EventUpdateBrand(m,e,$parent)}}"/>
+									</div>
+								</div>
+								<div class="company"  data-bind="visible:$data.CompanyName()!='',text:'来自'+$data.CompanyName(),attr:{title:'所属企业：'+$data.CompanyName()}">企业</div>
+							</div>
+						</div>
+					</div>
+					<div class="brand-item" data-bind="visible:$root.CtrlView.BrandInput()==$data.ID&&$root.ChooseNum()==1"><!-- brand-itemapprove待审批状态 -->
+						<button class="ic-delbtn right" title="关闭" data-bind="click:$root.EventCloseBrandInput"></button>
+						<div class="overflow-h">
+							<span class="txt" data-bind="">爱慕</span>
+							<input type="text" data-bind="textInput:$root.CtrlData.BrandAdd().Name,event:{change:$root.EventSaveBrand},"/>
+						</div>
+					</div>
+					<a class="bigdata-addbluebtn left mt5 mb10" data-bind="visible:$root.ui_display()==$data.ID&&$root.ChooseNum()==1,click:$root.EventAddBrandView">新增品牌</a>
+
+					<!-- 3级目录内容 -->
+					<div data-bind="foreach:$data.UI_Children">
+						<div data-bind="foreach:$data.Brand,visible:$root.ui_display()==$data.ID">
+							<div data-bind="visible: $root.ChooseNum()==0">
+								<!-- 待审核的数据 -->
+								<div data-bind="visible:$data.UI_Status()==1 && $root.ChooseNum()==0" class="s-brand-box left">
+									<!-- <span class="s-icon-wait left" ui-showbrandApp="true" style="display:none" data-bind="visible:$data.UI_Status()==1,click:function(m,e){$root.EventIsShowApp(m,e,$parent,'brand',$index)},attr:{'title':'审核'}"></span> -->
+									<span data-bind="click: function(m, e){$root.EventCheckedItem(m,e,$parent,'brand',$index)}, css: {'bigdata-apply-check': $data.IsSel()}" class="bigdata-apply-uncheck left mt6"></span>
+									<span class="bigdata-apply-uncheck left" style="display:none;"></span>
+									<!-- checkbox    bigdata-apply-uncheck 未选中    bigdata-apply-check  选中-->
+									<div class="brand-item s-brand s-addclick-bgcl-" data-bind="css:{' brand-itemapprove':$data.UI_Status()==1}"><!-- brand-itemapprove待审批状态 -->
+										<!-- <button class="ic-delbtn right" title="删除" data-bind="visible:$data.UI_EnableStatus()==0,click:function(m,e){$root.EventDelBrand(m,e,$parent,$index)}"></button> -->
+
+										<div ui-approve="true"></div>
+										<div class="overflow-h">
+											<span class="txt" data-bind="text:$data.Name" style="padding: 0 2px;color: black;">爱慕</span>
+											<!-- <input type="text" data-bind="textInput:$data.Name,event:{change:function(m,e){$root.EventUpdateBrand(m,e,$parent)}}"/> -->
+										</div>
+									</div>
+									<div class="company"  data-bind="visible:$data.CompanyName()!='',text:'来自'+$data.CompanyName(),attr:{title:'所属企业：'+$data.CompanyName()}">企业</div>
+								</div>
+							</div>
+						<!-- </div>
+						<div data-bind="foreach:$data.Brand,visible:$root.ui_display()==$data.ID "> -->
+							<div data-bind="visible:$root.ChooseNum()==1">
+								<!-- 内置数据/审核通过数据 -->
+								<div data-bind="visible:$data.UI_Status()==0||$data.UI_Status()==2 && $root.ChooseNum()==1" class="s-brand-box left">
+									<span class="left" style="display:none" data-bind="visible:$data.UI_Status()==0||$data.UI_Status()==2,click:function(m,e){$root.EvenEnableOrNo(m,e,'brand')},clickBubble:false,css:{'s-icon-ban':$data.UI_EnableStatus()!=1,'s-icon-start':$data.UI_EnableStatus()==1},attr:{'title':$data.UI_EnableStatus()==1?'禁用':'启用'}"></span>
+
+									<div class="brand-item s-brand s-addclick-bgcl-" data-bind="css:{' brand-itemapprove':$data.UI_Status()==1}"><!-- brand-itemapprove待审批状态 -->
+										<button class="ic-delbtn right" title="删除" style="display: none!important;" data-bind="visible:$data.UI_EnableStatus()===0,click:function(m,e){$root.EventDelBrand(m,e,$parent,$index)}"></button>
+
+										<div ui-approve="true"></div>
+										<div class="overflow-h">
+											<span class="txt" data-bind="text:$data.Name" style="padding: 0 2px;">爱慕</span>
+											<input type="text" data-bind="textInput:$data.Name,event:{mouseover: function(m,e){$root.EventCheckUpdate0(m,e)},change:function(m,e){$root.EventUpdateBrand(m,e,$parent)}}"/>
+										</div>
+									</div>
+									<div class="company"  data-bind="visible:$data.CompanyName()!='',text:'来自'+$data.CompanyName(),attr:{title:'所属企业：'+$data.CompanyName()}">企业</div>
+								</div>
+							</div>
+						</div>
+						<div class="brand-item" data-bind="visible:$root.CtrlView.BrandInput()==$data.ID&&$root.ChooseNum()==1">
+							<button class="ic-delbtn right" title="关闭" data-bind="click:$root.EventCloseBrandInput"></button>
+							<div class="overflow-h">
+								<span class="txt" data-bind="">爱慕</span>
+								<input type="text" data-bind="textInput:$root.CtrlData.BrandAdd().Name,event:{change:$root.EventSaveBrand},"/>
+							</div>
+						</div>
+						<a class="bigdata-addbluebtn left mt5 mb10" data-bind="visible:$root.ui_display()==$data.ID&&$root.ChooseNum()==1,click:$root.EventAddBrandView">新增品牌</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- 属性开始-->
+		<div class="bigdata-second-navtitle border-bdc lh28  mb20">
+			<span class="caption">属性</span>
+			<a data-bind="click: EventAttrbOfChecked" id="TypeId3" class="pointer second-nav second-nav-current">内置数据/审核通过数据</a>
+			<span class="second-line">|</span>
+			<a data-bind="click: EventAttrbOfUnchecked" id="TypeId4" class="pointer second-nav">待审核申请</a>
+			<span data-bind="text: NumOfTips2, visible: CheckTwo" class="red-tipnum">3</span>
+		</div>
+		<div data-bind="visible: ChooseNumAttrb1()==1" style="display: none;" class=" clearfix mb20" style=" margin-top: -5px;" >
+		  <!-- 审核按钮 -->
+		  <span data-bind="click: EventNewApproveFunc" class="left bigdata-applybtn bigdata-apply-agreebtn" title="同意"></span>
+		  <span data-bind="click: EventNewShowRefuteFunc" class="left bigdata-applybtn bigdata-apply-rejectbtn" title="驳回" ></span>
+		</div>
+		<div data-bind="foreach:CtrlData.category" class="s-navtit">
+
+			<!-- 根目录内容 -->
+			<div class="mb30" data-bind="foreach:$data.ABNList,visible:$root.ui_display()==$data.ID">
+				<!-- 待审核的数据 -->
+				<div class="bigdata-content" data-bind="visible: $data.UI_Status()==1 && $root.ChooseNumAttrb()==0">
+					<div class="mt10 clearfix mb10">
+						<!-- 待审批时图标状态 -->
+						<span data-bind="click: function(m, e){$root.EventAttrbCheck(m,e,$parent,'attributename',$index)}, css: {'bigdata-apply-check': $data.IsSel()}" class="bigdata-apply-uncheck left" style="margin-top:8px;"></span>
+						<div class="fs16 mt5 left s-property-box" style="color: black;" data-bind="text:$data.Name,css:{'title-f3':$data.UI_Status()==1}">tasd</div>
+						<a class="s-company-tit left" data-bind="visible:$data.CompanyName()!='',text:'(来自'+$data.CompanyName()+')'">企业</a>
+						<!-- 待审批时标题颜色 title-f3  -->
+					</div>
+					<div class="plrt10 clearfix v4-base-listbox dashed v4-red-f3- ">   <!-- 待审批时边框颜色 v4-red-f3 -->
+						<div data-bind="foreach:$data.ABVList" style="display:none-;">
+							<div data-bind="" class="relative left">
+								<!-- <a class="close" title="删除"  data-bind="visible:$parent.UI_Status()!=1,click:$root.EventDelABV,clickBubble:false"></a> -->
+								<span  class="item left"  ui-spanname="true" data-bind="css:{'s-item-blue':$data.UI_EnableStatus()==1,'s-icon-gray':$data.UI_EnableStatus()!=1},click:function(m,e){$root.EventIsShowABV(m,e,$parent,'attributevalue',$index)},text:$data.UI_ABVName()">ipoiwepori</span>
+								<input data-bind="textInput:$data.Name,event:{change:function(m,e){$root.EventUpdateAttributeValue(m,e)}}" class="s-edit-input left s-icon-gray" ui-inputname="true" type="text" value="" style="cursor: initial;display:none"/>  <!-- 编辑 input -->
+								<!-- ,css:{'s-icon-gray':$data.UI_EnableStatus()==1,'s-item-blue':$data.UI_EnableStatus()!=1} -->
+								<div ui-attributename="true" style="position: absolute;left:100%;top: -5px;min-width:120px;z-index: 1;margin-left:-15px;"></div>
+							</div>
+						</div>
+
+						<!-- 待审批状态时，输入框隐藏  -->
+						<input data-bind="visible:$data.UI_Status()!=1,textInput:$root.CtrlData.ABVAdd().Name,event:{keyup:$root.EventSaveABV}" type="text" class="left fs12 mb10" placeholder="输入属性值名称，按Enter新增" style="width:200px;margin-top:6px;">
+					</div>
+				</div>
+
+				<!-- 内置数据/审核通过数据 -->
+				<div class="bigdata-content" data-bind="visible: $data.UI_Status()!=1 && $root.ChooseNumAttrb()==1">
+					<div class="mt10 clearfix mb10">
+						<a class="right s-i-graydel i-img16 pointer  mt9" title="删除" data-bind="visible:($data.UI_Status()==0||$data.UI_Status()==2),click:function(m,e){$root.EventDelABN(m,e,$parent)}"></a>
+                        <span class="right ml8 mr4 short-line s-short-line"></span>
+						<!-- <span class="right mlr10 short-line s-short-line mt9" style="display:none;" data-bind="visible:$data.UI_EnableStatus()==0&&$data.UI_Status()==0"></span> -->
+
+						<a class="right s-i-grayedit i-img16 pointer i-edithover mt9" title="编辑" data-bind="visible:($data.UI_Status()==2||$data.UI_Status()==0),click:$root.EventUpdateABNView"></a>
+						<!-- <a data-bind="visible:$data.UI_Status()==1,click:function(m,e){$root.EventApproveAttr(m,e,$parent)}" class="right s-green-draw i-img16 pointer mt10" title="审核" style="display:none;"></a> -->  <!-- 待审批时图标状态 -->
+						<span class="left" style="display:none" data-bind="visible:$data.UI_Status()==0||$data.UI_Status()==2,click:function(m,e){$root.EvenEnableOrNo(m,e,'attributename')},clickBubble:false,css:{'s-icon-ban':$data.UI_EnableStatus()!=1,'s-icon-start':$data.UI_EnableStatus()==1},attr:{'title':$data.UI_EnableStatus()==1?'禁用':'启用'}"></span>
+						<div ui-approve="true" style="line-height: 26px;"></div>
+						<div class="fs16 mt5 left s-property-box" data-bind="text:$data.Name,css:{'title-f3':$data.UI_Status()==1}">tasd</div>
+						<a class="s-company-tit left" data-bind="visible:$data.CompanyName()!='',text:'(来自'+$data.CompanyName()+')'">企业</a>
+					</div>
+					<div class="plrt10 clearfix v4-base-listbox dashed v4-red-f3-">
+					<!-- 待审批时边框颜色 v4-red-f3 -->
+						<div data-bind="foreach:$data.ABVList">
+							<!-- <span class="item left">
+								<a class="close" title="删除"  data-bind="visible:$parent.UI_Status()!=1,click:$root.EventDelABV,clickBubble:false"></a>   待审批状态时，删除按钮隐藏
+								<span data-bind="text:$data.Name">ipoiwepori</span>
+							</span> -->
+							<div data-bind="" class="relative left">
+								<!-- <a class="close" title="删除"  data-bind="visible:$parent.UI_Status()!=1,click:$root.EventDelABV,clickBubble:false"></a> -->
+								<span  class="item left"  ui-spanname="true"  data-bind="css:{'s-item-blue':$data.UI_EnableStatus()==1,'s-icon-gray':$data.UI_EnableStatus()!=1},click:function(m,e){$root.EventIsShowABV(m,e,$parent,'attributevalue',$index)},text:$data.UI_ABVName()">ipoiwepori</span>
+								<input data-bind="textInput:$data.Name,event:{change:function(m,e){$root.EventUpdateAttributeValue(m,e)}}" class="s-edit-input left s-icon-gray" ui-inputname="true"  type="text" value="" style="cursor: initial;display:none"/>  <!-- 编辑 input -->
+								<!-- ,css:{'s-icon-gray':$data.UI_EnableStatus()==1,'s-item-blue':$data.UI_EnableStatus()!=1} -->
+								<div ui-attributename="true" style="position: absolute;left:100%;top: -5px;min-width:120px;z-index: 1;margin-left:-15px;"></div>
+							</div>
+						</div>
+						<!-- 待审批状态时，输入框隐藏  -->
+						<input data-bind="visible:$data.UI_Status()!=1,textInput:$root.CtrlData.ABVAdd().Name,event:{keyup:$root.EventSaveABV}" type="text" class="left fs12 mb10" placeholder="输入属性值名称，按Enter新增" style="width:200px;margin-top:6px;">
+					</div>
+				</div>
+			</div>
+			<button type="button" class="bluebtn bigdata-choosebtn" data-bind="visible:$root.ui_display()==$data.ID && $root.ChooseNumAttrb()==1,click:$root.EventAddAttribute">新增属性</button>
+
+			<!-- 二级目录内容 -->
+			<div data-bind="foreach:$data.UI_Children">
+				<div class="mb30" data-bind="foreach:$data.ABNList,visible:$root.ui_display()==$data.ID">
+				<!-- 待审核的数据 -->
+					<div class="bigdata-content" data-bind="visible: $data.UI_Status()==1 && $root.ChooseNumAttrb()==0">
+						<div class="mt10 clearfix mb10">
+							<!-- 待审批时图标状态 -->
+							<span data-bind="click: function(m, e){$root.EventAttrbCheck(m,e,$parent,'attributename',$index)}, css: {'bigdata-apply-check': $data.IsSel()}" class="bigdata-apply-uncheck left" style="margin-top:8px;"></span>
+
+							<div class="fs16 mt5 left s-property-box" style="color: black;" data-bind="text:$data.Name,css:{'title-f3':$data.UI_Status()==1}">tasd</div>
+							<a class="s-company-tit left" data-bind="visible:$data.CompanyName()!='',text:'(来自'+$data.CompanyName()+')'">企业</a>
+							<!-- 待审批时标题颜色 title-f3  -->
+						</div>
+						<div class="plrt10 clearfix v4-base-listbox dashed v4-red-f3- ">   <!-- 待审批时边框颜色 v4-red-f3 -->
+							<div data-bind="foreach:$data.ABVList" style="display:none-;">
+								<div data-bind="" class="relative left">
+									<!-- <a class="close" title="删除"  data-bind="visible:$parent.UI_Status()!=1,click:$root.EventDelABV,clickBubble:false"></a> -->
+									<span  class="item left"  ui-spanname="true" data-bind="css:{'s-item-blue':$data.UI_EnableStatus()==1,'s-icon-gray':$data.UI_EnableStatus()!=1},click:function(m,e){$root.EventIsShowABV(m,e,$parent,'attributevalue',$index)},text:$data.UI_ABVName()">ipoiwepori</span>
+									<input data-bind="textInput:$data.Name,event:{change:function(m,e){$root.EventUpdateAttributeValue(m,e)}}" class="s-edit-input left s-icon-gray" ui-inputname="true" type="text" value="" style="cursor: initial;display:none"/>  <!-- 编辑 input -->
+									<!-- ,css:{'s-icon-gray':$data.UI_EnableStatus()==1,'s-item-blue':$data.UI_EnableStatus()!=1} -->
+									<div ui-attributename="true" style="position: absolute;left:100%;top: -5px;min-width:120px;z-index: 1;margin-left:-15px;"></div>
+								</div>
+							</div>
+
+							<!-- 待审批状态时，输入框隐藏  -->
+							<input data-bind="visible:$data.UI_Status()!=1,textInput:$root.CtrlData.ABVAdd().Name,event:{keyup:$root.EventSaveABV}" type="text" class="left fs12 mb10" placeholder="输入属性值名称，按Enter新增" style="width:200px;margin-top:6px;">
+						</div>
+					</div>
+
+					<!-- 内置数据/审核通过数据 -->
+					<div class="bigdata-content" data-bind="visible: $data.UI_Status()!=1 && $root.ChooseNumAttrb()==1">
+						<div class="mt10 clearfix mb10">
+							<a class="right s-i-graydel i-img16 pointer i-delhover mt9" title="删除" data-bind="visible:($data.UI_Status()==0||$data.UI_Status()==2),click:function(m,e){$root.EventDelABN(m,e,$parent)}"></a>
+                            <span class="right ml8 mr4 short-line s-short-line"></span>
+							<!-- <span class="right mlr10 short-line s-short-line mt9" style="display:none;" data-bind="visible:$data.UI_EnableStatus()==0&&$data.UI_Status()==0"></span> -->
+							<a class="right s-i-grayedit i-img16 pointer i-edithover mt9" title="编辑" data-bind="visible:($data.UI_Status()==2||$data.UI_Status()==0),click:$root.EventUpdateABNView"></a>
+							<!-- <a data-bind="visible:$data.UI_Status()==1,click:function(m,e){$root.EventApproveAttr(m,e,$parent)}" class="right s-green-draw i-img16 pointer mt10" title="审核" style="display:none;"></a> -->  <!-- 待审批时图标状态 -->
+							<span class="left" style="display:none" data-bind="visible:$data.UI_Status()==0||$data.UI_Status()==2,click:function(m,e){$root.EvenEnableOrNo(m,e,'attributename')},clickBubble:false,css:{'s-icon-ban':$data.UI_EnableStatus()!=1,'s-icon-start':$data.UI_EnableStatus()==1},attr:{'title':$data.UI_EnableStatus()==1?'禁用':'启用'}"></span>
+							<div ui-approve="true" style="line-height: 26px;"></div>
+							<div class="fs16 mt5 left s-property-box" data-bind="text:$data.Name,css:{'title-f3':$data.UI_Status()==1}">tasd</div>
+							<a class="s-company-tit left" data-bind="visible:$data.CompanyName()!='',text:'(来自'+$data.CompanyName()+')'">企业</a>
+						</div>
+						<div class="plrt10 clearfix v4-base-listbox dashed v4-red-f3-">
+						<!-- 待审批时边框颜色 v4-red-f3 -->
+							<div data-bind="foreach:$data.ABVList">
+								<!-- <span class="item left">
+									<a class="close" title="删除"  data-bind="visible:$parent.UI_Status()!=1,click:$root.EventDelABV,clickBubble:false"></a>   待审批状态时，删除按钮隐藏
+									<span data-bind="text:$data.Name">ipoiwepori</span>
+								</span> -->
+								<div data-bind="" class="relative left">
+									<!-- <a class="close" title="删除"  data-bind="visible:$parent.UI_Status()!=1,click:$root.EventDelABV,clickBubble:false"></a> -->
+									<span  class="item left"  ui-spanname="true"  data-bind="css:{'s-item-blue':$data.UI_EnableStatus()==1,'s-icon-gray':$data.UI_EnableStatus()!=1},click:function(m,e){$root.EventIsShowABV(m,e,$parent,'attributevalue',$index)},text:$data.UI_ABVName()">ipoiwepori</span>
+									<input data-bind="textInput:$data.Name,event:{change:function(m,e){$root.EventUpdateAttributeValue(m,e)}}" class="s-edit-input left s-icon-gray" ui-inputname="true"  type="text" value="" style="cursor: initial;display:none"/>  <!-- 编辑 input -->
+									<!-- ,css:{'s-icon-gray':$data.UI_EnableStatus()==1,'s-item-blue':$data.UI_EnableStatus()!=1} -->
+									<div ui-attributename="true" style="position: absolute;left:100%;top: -5px;min-width:120px;z-index: 1;margin-left:-15px;"></div>
+								</div>
+							</div>
+							<!-- 待审批状态时，输入框隐藏  -->
+							<input data-bind="visible:$data.UI_Status()!=1,textInput:$root.CtrlData.ABVAdd().Name,event:{keyup:$root.EventSaveABV}" type="text" class="left fs12 mb10" placeholder="输入属性值名称，按Enter新增" style="width:200px;margin-top:6px;">
+						</div>
+					</div>
+				</div>
+				<button type="button" class="bluebtn bigdata-choosebtn" data-bind="visible:$root.ui_display()==$data.ID && $root.ChooseNumAttrb()==1,click:$root.EventAddAttribute">新增属性</button>
+
+				<!-- san级目录内容 -->
+				<div data-bind="foreach:$data.UI_Children">
+					<div class="mb30" data-bind="foreach:$data.ABNList,visible:$root.ui_display()==$data.ID">
+						<!-- 待审核的数据 -->
+						<div class="bigdata-content" data-bind="visible: $data.UI_Status()==1 && $root.ChooseNumAttrb()==0">
+							<div class="mt10 clearfix mb10">
+								<!-- 待审批时图标状态 -->
+								<span data-bind="click: function(m, e){$root.EventAttrbCheck(m,e,$parent,'attributename',$index)}, css: {'bigdata-apply-check': $data.IsSel()}" class="bigdata-apply-uncheck left" style="margin-top:8px;"></span>
+
+								<div class="fs16 mt5 left s-property-box" style="color: black;" data-bind="text:$data.Name,css:{'title-f3':$data.UI_Status()==1}">tasd</div>
+								<a class="s-company-tit left" data-bind="visible:$data.CompanyName()!='',text:'(来自'+$data.CompanyName()+')'">企业</a>
+								<!-- 待审批时标题颜色 title-f3  -->
+							</div>
+							<div class="plrt10 clearfix v4-base-listbox dashed v4-red-f3- ">   <!-- 待审批时边框颜色 v4-red-f3 -->
+								<div data-bind="foreach:$data.ABVList" style="display:none-;">
+									<div data-bind="" class="relative left">
+										<!-- <a class="close" title="删除"  data-bind="visible:$parent.UI_Status()!=1,click:$root.EventDelABV,clickBubble:false"></a> -->
+										<span  class="item left"  ui-spanname="true" data-bind="css:{'s-item-blue':$data.UI_EnableStatus()==1,'s-icon-gray':$data.UI_EnableStatus()!=1},click:function(m,e){$root.EventIsShowABV(m,e,$parent,'attributevalue',$index)},text:$data.UI_ABVName()">ipoiwepori</span>
+										<input data-bind="textInput:$data.Name,event:{change:function(m,e){$root.EventUpdateAttributeValue(m,e)}}" class="s-edit-input left s-icon-gray" ui-inputname="true" type="text" value="" style="cursor: initial;display:none"/>  <!-- 编辑 input -->
+										<!-- ,css:{'s-icon-gray':$data.UI_EnableStatus()==1,'s-item-blue':$data.UI_EnableStatus()!=1} -->
+										<div ui-attributename="true" style="position: absolute;left:100%;top: -5px;min-width:120px;z-index: 1;margin-left:-15px;"></div>
+									</div>
+								</div>
+
+								<!-- 待审批状态时，输入框隐藏  -->
+								<input data-bind="visible:$data.UI_Status()!=1,textInput:$root.CtrlData.ABVAdd().Name,event:{keyup:$root.EventSaveABV}" type="text" class="left fs12 mb10" placeholder="输入属性值名称，按Enter新增" style="width:200px;margin-top:6px;">
+							</div>
+						</div>
+
+						<!-- 内置数据/审核通过数据 -->
+						<div class="bigdata-content" data-bind="visible: $data.UI_Status()!=1 && $root.ChooseNumAttrb()==1">
+							<div class="mt10 clearfix mb10">
+								<a class="right s-i-graydel i-img16 pointer i-delhover mt9" title="删除" data-bind="visible:($data.UI_Status()==0||$data.UI_Status()==2),click:function(m,e){$root.EventDelABN(m,e,$parent)}"></a>
+                                <span class="right ml8 mr4 short-line s-short-line"></span>
+								<!-- <span class="right mlr10 short-line s-short-line mt9" style="display:none;" data-bind="visible:$data.UI_EnableStatus()==0&&$data.UI_Status()==0"></span> -->
+								<a class="right s-i-grayedit i-img16 pointer i-edithover mt9" title="编辑" data-bind="visible:($data.UI_Status()==2||$data.UI_Status()==0),click:$root.EventUpdateABNView"></a>
+								<!-- <a data-bind="visible:$data.UI_Status()==1,click:function(m,e){$root.EventApproveAttr(m,e,$parent)}" class="right s-green-draw i-img16 pointer mt10" title="审核" style="display:none;"></a> -->  <!-- 待审批时图标状态 -->
+								<span class="left" style="display:none" data-bind="visible:$data.UI_Status()==0||$data.UI_Status()==2,click:function(m,e){$root.EvenEnableOrNo(m,e,'attributename')},clickBubble:false,css:{'s-icon-ban':$data.UI_EnableStatus()!=1,'s-icon-start':$data.UI_EnableStatus()==1},attr:{'title':$data.UI_EnableStatus()==1?'禁用':'启用'}"></span>
+								<div ui-approve="true" style="line-height: 26px;"></div>
+								<div class="fs16 mt5 left s-property-box" data-bind="text:$data.Name,css:{'title-f3':$data.UI_Status()==1}">tasd</div>
+								<a class="s-company-tit left" data-bind="visible:$data.CompanyName()!='',text:'(来自'+$data.CompanyName()+')'">企业</a>
+							</div>
+							<div class="plrt10 clearfix v4-base-listbox dashed v4-red-f3-">
+							<!-- 待审批时边框颜色 v4-red-f3 -->
+								<div data-bind="foreach:$data.ABVList">
+									<!-- <span class="item left">
+										<a class="close" title="删除"  data-bind="visible:$parent.UI_Status()!=1,click:$root.EventDelABV,clickBubble:false"></a>   待审批状态时，删除按钮隐藏
+										<span data-bind="text:$data.Name">ipoiwepori</span>
+									</span> -->
+									<div data-bind="" class="relative left">
+										<!-- <a class="close" title="删除"  data-bind="visible:$parent.UI_Status()!=1,click:$root.EventDelABV,clickBubble:false"></a> -->
+										<span  class="item left"  ui-spanname="true"  data-bind="css:{'s-item-blue':$data.UI_EnableStatus()==1,'s-icon-gray':$data.UI_EnableStatus()!=1},click:function(m,e){$root.EventIsShowABV(m,e,$parent,'attributevalue',$index)},text:$data.UI_ABVName()">ipoiwepori</span>
+										<input data-bind="textInput:$data.Name,event:{change:function(m,e){$root.EventUpdateAttributeValue(m,e)}}" class="s-edit-input left s-icon-gray" ui-inputname="true"  type="text" value="" style="cursor: initial;display:none"/>  <!-- 编辑 input -->
+										<!-- ,css:{'s-icon-gray':$data.UI_EnableStatus()==1,'s-item-blue':$data.UI_EnableStatus()!=1} -->
+										<div ui-attributename="true" style="position: absolute;left:100%;top: -5px;min-width:120px;z-index: 1;margin-left:-15px;"></div>
+									</div>
+								</div>
+								<!-- 待审批状态时，输入框隐藏  -->
+								<input data-bind="visible:$data.UI_Status()!=1,textInput:$root.CtrlData.ABVAdd().Name,event:{keyup:$root.EventSaveABV}" type="text" class="left fs12 mb10" placeholder="输入属性值名称，按Enter新增" style="width:200px;margin-top:6px;">
+							</div>
+						</div>
+					</div>
+					<button type="button" class="bluebtn bigdata-choosebtn" data-bind="visible:$root.ui_display()==$data.ID && $root.ChooseNumAttrb()==1,click:$root.EventAddAttribute">新增属性</button>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+	<!-- 新增属性弹出层 -->
+	<div class="popupbg" style="display:none" data-bind="attr:{id:AttributeViewID}" ui-pop-bg="true">
+		<div class="bigdata-popview popup" ui-pop="true" style="height:610px; margin-top:-305px;">
+			<div class="head">
+				<span class="bluetitle">新增属性</span>
+				<span class="close" title="关闭" data-bind="click:$root.EventCloseAttribute"></span>
+			</div>
+			<div class="content clearfix">
+				<div class="mt20">
+					<div class="bigdata-navtitle">基本属性</div>
+					<div class="input-widgets input-w219">
+						<span class="title">
+							<span>属性名称：</span>
+						</span>
+						<div class="input-div">
+							<input type="text" data-bind="textInput:CtrlData.ABNAdd().Name">
+						</div>
+					</div>
+					<div class="checkbox-widgets">
+						<span class="title">
+						</span>
+						<div class="box">
+							<input type="checkbox" class="mr5" style="display:inline-block;" data-bind="checked:CtrlData.IsColor"/>
+							<span>颜色属性</span>
+						</div>
+					</div>
+					<div class="checkbox-widgets">
+						<span class="title">
+						</span>
+						<div class="box">
+							<input type="checkbox" class="mr5" style="display:inline-block;" data-bind="checked:CtrlData.RelatedPicture"/>
+							<span>关联图片</span>
+						</div>
+					</div>
+					<div class="checkbox-widgets">
+						<span class="title">
+						</span>
+						<div class="box">
+							<input type="checkbox" style="display:inline-block;"  data-bind="checked:CtrlData.IsNeed"/>
+							<span class="ml5">必录</span>
+						</div>
+					</div>
+				</div>
+				<div class="mt20">
+					<div class="bigdata-navtitle">属性用途</div>
+					<div class="checkbox-widgets">
+						<span class="title">
+						</span>
+						<div class="box">
+							<input type="checkbox"  style="display:inline-block;" data-bind="checked:CtrlData.IsSPU"/>
+							<span class="ml5">关键属性</span>
+							<span class="clra0">（能够确认唯一"产品"的属性。如：手机的"品牌"、"型号"能确定唯一的产品。）</span>
+						</div>
+					</div>
+					<div class="checkbox-widgets">
+						<span class="title">
+						</span>
+						<div class="box">
+							<input type="checkbox"  style="display:inline-block;" data-bind="checked:CtrlData.IsSKU"/>
+							<span class="ml5">销售属性</span>
+							<span class="clra0">（组成SKU的特殊属性，它会影响买家的购买和卖家的库存管理，如服装的"颜色"、"套餐"和"尺码"。）</span>
+						</div>
+					</div>
+					<div class="checkbox-widgets">
+						<span class="title">
+						</span>
+						<div class="box">
+							<input type="checkbox"  style="display:inline-block;" data-bind="checked:CtrlData.IsSearch"/>
+							<span class="ml5">搜索属性</span>
+							<span class="clra0"> （控制哪些属性是给用户或者我们的客户进行搜索。）</span>
+						</div>
+					</div>
+				</div>
+				<div class="mt20">
+					<div class="bigdata-navtitle">显示方式</div>
+					<div class="radio-widgets">
+						<span class="title"></span>
+						<div class="overflow-h">
+							<div class="mb10">
+								<span class="" data-bind="click:$root.EventRadio1,css:{'radio-on':AttrRadio()==0,'radio-out':AttrRadio()!=0}"></span>
+								<span>下拉列表</span>
+							</div>
+							<div class="mb10">
+								<span class="radio-out" data-bind="click:$root.EventRadio2,css:{'radio-on':AttrRadio()==1,'radio-out':AttrRadio()!=1}"></span>
+								<span>输入文本</span>
+							</div>
+							<div  class="mb10">
+								<span class="radio-out" data-bind="click:$root.EventRadio3,css:{'radio-on':AttrRadio()==2,'radio-out':AttrRadio()!=2}"></span>
+								<span>多选项</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="popup-footer mt20 clerfix">
+				<button class="confirmbtn" style="float:left;margin-left:180px;" data-bind="text:CtrlView.AttrEditView()==false?'保存':'更新',click:$root.EventSaveABN">保存</button>
+				<button class="cancelbtn" style="float:left;" data-bind="click:$root.EventCloseAttribute">取消</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- (驳回)弹出层 -->
+	<div data-bind="attr:{id:CtrlRefuteID}" ui-pop-bg="true" class="s-opoview-fixed" style="display:none;">
+		<div ui-pop="true" class="bigdata-popview popup" style="width:490px;height: 320px;margin-top: -160px;margin-left: -245px;">
+			<!--  <div style="height:48px;border-bottom: 1px solid #dcdcdc;line-height: 48px;padding: 0 15px;border-top-left-radius: 5px;border-top-right-radius: 5px;">
+				<a data-bind="click:EventCloseRefute" style="width: 24px;height: 24px;float: right;cursor: pointer;margin-top: 12px;background: url({{.StaticServer}}/T1yun/cssAndjs/v2.3/images/popclose.png) 0 0px no-repeat;" title="关闭"></a>
+				<span style="font-size: 16px;">驳回申请</span>
+			</div>-->
+			<div class="head assist-head">
+				<span class="bluetitle">拒绝申请</span>
+				<span class="close" title="关闭" data-bind="click:EventCloseRefute"></span>
+			</div>
+			<div class="content" style="padding-top:24px;">
+				<div class="input-widgets" >
+					<!--  <span class="title left clr22" >
+						<span>驳回原因：</span>
+					</span>-->
+					<div class="input-div">
+						<textarea data-bind="textInput:AttrApproveRemark" type="text" placeholder="请输入驳回原因" style="width: 100%; height: 140px;resize:none;border-color: #d2d2d2; padding: 5px;"></textarea>
+					</div>
+				</div>
+			</div>
+			<!--  <div style="padding:0 10px;">
+				<button data-bind="click:EventCloseRefute" style="background-color: #bebebe;color: #fff;float:right;width: 87px;height: 34px;margin-top: 7px;margin-left: 10px;cursor: pointer;border-radius: 2px;">取消</button>
+				<button data-bind="click:EventDataToRefute" style="background-color: #3a8fde;color: #fff;float:right;width: 87px;height: 34px;margin-top: 7px;margin-left: 10px;cursor: pointer;border-radius: 2px;">确定</button>
+			</div>-->
+			<div class="popup-footer mt20 clearfix">
+				<button class="cancelbtn right" data-bind="click:EventCloseRefute">取消</button>
+				<button class="confirmbtn right" data-bind="click:EventDataToRefute">确定</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- 审核弹出层 -->
+	<div class="s-apply-selet" ui-showAppControl="true" style="display:none;" data-bind="attr:{id:CtrlIsShowAppID}">
+		<div>
+			<span class="s-apply-agree" data-bind="click:EventNewApproveFunc">同意</span>
+			<span class="s-apply-refuse" data-bind="click:EventNewShowRefuteFunc">驳回</span>
+		</div>
+	</div>
+	<!-- 属性值启用禁用编辑删除控制弹出层 -->
+	<div class="s-gray-selet" ui-showABVControl="true" style="display:none;" data-bind="attr:{id:CtrlIsShowABVID}">
+		<div>
+			<span class="s-gray-diable" style="display:none;" data-bind="visible:AttrDataToEnableOrDisable().EnableStatus!=1,click:$root.EventEnableOrDisableAttributeValue">启用</span>
+			<span class="s-gray-diable" style="display:none;" data-bind="visible:AttrDataToEnableOrDisable().EnableStatus==1,click:$root.EventEnableOrDisableAttributeValue">禁用</span>
+			<span class="s-gray-del" style="display:none;" data-bind="visible:AttrDataToEnableOrDisable().EnableStatus!=1,click:$root.EventDelAttributeValue">删除</span>
+			<span class="s-gray-tlt" data-bind="css:{'disabled': AttrDataToEnableOrDisable().EnableStatus==1},click:$root.EventEditNBV">编辑</span>
+		</div>
+	</div>
+	<div ui-beitai="true" style="display:none"></div>
+</div>
+
+
+<script type="text/javascript">
+		var ctrl=$('#{{.GUID}}');
+		function Module_Manage_Store_BaseBrandV23(){
+
+			this.CtrlIsShowABVID=tone.sys.guid();
+			this.AttrShowABVIndex = ko.observable(0);
+			this.AttrShowABVKey = ko.observable(0);
+			this.AttrDataToEnableOrDisable = ko.observable({EnableStatus:0,Name:'',ID:'',UI_Key:0});//取当前编辑的的属性值
+			this.EventIsShowABV = function(m,e,parent,type,index){
+				this.AttrDataToEnableOrDisable({EnableStatus:0,Name:'',ID:'',UI_Key:0});
+				this.AttrDataToEnableOrDisable({EnableStatus:m.EnableStatus,Name:m.Name,ID:m.ID,UI_Key:m.UI_Key});
+				// console.log(this.AttrDataToEnableOrDisable(),"his.AttrDataToEnableOrDisable(m)")
+				// console.log(m,type,index(),"eeeeee")
+				// console.log($(e.target).parent().find('[ui-attributename="true"]'),this.AttrShowABVKey(),m.UI_Key,this.AttrShowABVIndex()==index())
+				if(this.AttrShowABVKey()==m.UI_Key&&this.AttrShowABVIndex()==index()&&$('#'+this.CtrlIsShowABVID).css("display")!="none"){
+					$('#'+this.CtrlIsShowABVID).hide();
+					console.log("dadf")
+					return;
+				}
+				// console.log($('#'+this.CtrlIsShowABVID).show(),"1111111111111111")
+				var s = $('#'+this.CtrlIsShowABVID).show();
+				$(e.target).parent().find('[ui-attributename="true"]').append(s[0]);
+				this.AttrShowABVIndex(index());
+				this.AttrShowABVKey(m.UI_Key)
+			}.bind(this);
+
+			this.EventEditNBV = function(m,e){
+				$('[ui-showABVControl="true"]').css("display","none")
+				$(e.target).parent().parent().parent().parent().find('[ui-spanname="true"]').css("display","none");
+				$(e.target).parent().parent().parent().parent().find('[ui-inputname="true"]').css("display","block");
+			}.bind(this);
+
+
+
+			this.CtrlIsShowAppID=tone.sys.guid();
+			this.AttrShowAppIndex = ko.observable(0)
+			this.AttDataWaitForApp = ko.observable({m1:'',e1:'',parent1:'',type1:''});
+			this.EventIsShowApp = function(m,e,parent,type,index){
+				//console.log(m,type,index(),"ffffffff")
+				if(this.AttrShowAppIndex()==index()&&$('#'+this.CtrlIsShowAppID).css("display")!="none"){
+					$('#'+this.CtrlIsShowAppID).hide();
+					return;
+				}
+				var s = $('#'+this.CtrlIsShowAppID).show();
+				$(e.target).parent().find('[ui-approve="true"]').append(s[0]);
+				this.AttrShowAppIndex(index());
+				this.AttDataWaitForApp({m1:m,e1:e,parent1:parent,type1:type});
+			}.bind(this);
+			//新驳回申请入口
+			this.EventNewShowRefuteFunc = function(m,e){
+				if (this.Selemps().length === 0) {
+					tone.views.FuncAddTip("请选择需要审核的对象!");
+					return;
+				}
+				var m1=[];
+				var e1=[];
+				var parent1=[];
+				var type1=[];
+				$.each(this.Selemps(), function (k, v) {
+					m1.push(v.m1);
+					e1.push(v.e1);
+					parent1.push(v.parent1);
+					type1.push(v.type1);
+				});
+				this.EventShowRefute(m1,e1,parent1,type1);
+				//console.log(this.AttDataWaitForApp(),"aaaaaaa")
+			}.bind(this)
+
+			//新同意申请入口
+			this.EventNewApproveFunc = function(m,e){
+				if (this.Selemps().length === 0) {
+					tone.views.FuncAddTip("请选择需要审核的对象!");
+					return;
+				}
+				var m1=[];
+				var e1=[];
+				var parent1=[];
+				var type1=[];
+				$.each(this.Selemps(), function (k, v) {
+					m1.push(v.m1);
+					e1.push(v.e1);
+					parent1.push(v.parent1);
+					type1.push(v.type1);
+				})
+				var i = m1.length;
+				for (var am = 0; am<i; am++) {
+					if(type1[am]=='brand'){
+						this.EventApproveBrand(m1[am],e1[am],parent1[am]);
+					}
+					if(type1[am]=='attributename'){
+						this.EventApproveAttr(m1[am],e1[am],parent1[am]);
+					}
+				}
+			}.bind(this);
+
+			//编辑更新属性值
+			this.EventUpdateAttributeValue = function(m,e){
+				var params={};
+				params.Name=m.Name;
+				params.ID=m.ID;
+				m.UI_ABVName(m.Name);
+				//params.EnableStatus = m.EnableStatus;
+				//m.UI_EnableStatus(1);
+				//console.log(m,m.UI_ABVName(),"UI_ABVName()")
+				this.FuncUpdate('attributevalue',params,function(data){
+					$('[ui-spanname="true"]').css("display","block");
+					$('[ui-inputname="true"]').css("display","none");
+				}.bind(this))
+			}.bind(this);
+
+			//启用或禁用属性值
+			this.EventEnableOrDisableAttributeValue = function(m,e){
+				//console.log(this.AttrDataToEnableOrDisable(),"dddddggggggggg")
+				var params={};
+				if(this.AttrDataToEnableOrDisable().EnableStatus!=1){
+					params.EnableStatus = 1
+				}else{
+					params.EnableStatus = 2
+				}
+				params.ID=this.AttrDataToEnableOrDisable().ID;
+				this.FuncUpdate('attributevalue',params,function(data){
+					$.each(this.CtrlData.ABNList(),function(k,v){
+						$.each(v.ABVList(),function(k1,v1){
+							if(v1.ID==params.ID){
+								v1.EnableStatus = params.EnableStatus
+								v1.UI_EnableStatus(params.EnableStatus)
+							}
+						}.bind(this));
+					}.bind(this));
+					//$('[ui-spanname="true"]').css("display","block");
+					//$('[ui-inputname="true"]').css("display","none");
+					$('[ui-showABVControl="true"]').css("display","none");
+				}.bind(this))
+			}.bind(this);
+
+			//删除属性值
+			this.EventDelAttributeValue = function(m,e){
+				//console.log(this.AttrDataToEnableOrDisable(),"ssssssssssssssfffffffff")
+				var params = {}
+				params.id = this.AttrDataToEnableOrDisable().ID
+				var s = $('#'+this.CtrlIsShowABVID).hide();
+				$('[ui-beitai="true"]').append(s[0]);
+				this.FuncDel('attributevalue',params,function(data){
+					var del = false
+					var kk = this.AttrDataToEnableOrDisable().UI_Key
+					$.each(this.CtrlData.ABNList(),function(k,v){
+						if(k==kk){
+							var list= []
+							$.each(v.ABVList(),function(k1,v1){
+								if(v1.ID==params.id){
+									del = true
+								}else{
+									list.push(v1)
+								}
+							}.bind(this));
+							if(del==true){
+								del = false
+								v.ABVList(list)
+							}
+						}
+					}.bind(this));
+				}.bind(this));
+			}.bind(this);
+
+
+			$('body').mousedown(function(e){
+				//此处会导致连续点击同一按钮两次时弹出层没有缩回
+				console.log($(e.target).jparent('[ui-approve="true"]').length<1,!$(e.target).is('[ui-showbrandApp="true"]'))
+				if($(e.target).jparent('[ui-approve="true"]').length<1&&!$(e.target).is('[ui-showbrandApp="true"]')){
+					$('[ui-showAppControl="true"]').css("display","none")
+				}
+				if($(e.target).jparent('[ui-attributename="true"]').length<1&&!$(e.target).is('[ui-spanname="true"]')){
+					$('[ui-showABVControl="true"]').css("display","none")
+				}
+
+				if(/*  $(e.target).jparent('[ui-spanname="true"]').length<1&&  */$(e.target).jparent('[ui-inputname="true"]').length<1){
+					$('[ui-spanname="true"]').css("display","block")
+					$('[ui-inputname="true"]').css("display","none")
+				}
+				/* if($(e.target).jparent('[ui-spanname="true"]').length>0){
+					$('[ui-spanname="true"]').css("display","block")
+					$('[ui-inputname="true"]').css("display","none")
+				} */
+			});
+			/*数据控制*/
+			this.CtrlData={
+				//*类目数据%
+				category:ko.observableArray([]),
+				CategoryAdd:ko.observable({}),
+				//品牌
+				brand:{
+					data:ko.observableArray([]),
+					skip:0,
+					limit:1000,
+					sel:ko.observable({})
+				},
+				BrandAdd:ko.observable({}),
+				ABNList:ko.observableArray([]),
+				ABVList:ko.observableArray([]),
+				ABVAdd:ko.observable({}),
+				ABNAdd:ko.observable({}),
+				IsColor:ko.observable(false),
+				IsSPU:ko.observable(false),
+				IsSKU:ko.observable(false),
+				IsSearch:ko.observable(false),
+				IsNeed:ko.observable(false),
+				RelatedPicture:ko.observable(false),
+				//公司数据列表
+				ListCompany:ko.observableArray([]),
+				// selmp: ko.observable({UID:ID}),
+				// selmps: ko.observableArray([]),
+			};
+			this.CtrlView={
+				//子类目的输入
+				IsDisplay:ko.observable({}),
+				BrandInput:ko.observable(),
+				StairCategoryAddView:ko.observable(),
+				//修改类目
+				UpdateCategoryView:ko.observable({}),
+				AttrEditView:ko.observable(false),
+			};
+			//弹出编辑属性视图
+			this.AttributeViewID=tone.sys.guid();
+			//this.AddAttributeView=ko.observable(false);
+			this.AttrRadio=ko.observable(0);
+			//选定类目
+			this.ui_display=ko.observable(0);
+			this.AttrCategory=ko.observableArray([]);
+			//显示一级的类目的输入
+			this.EventAddStairCategory=function(){
+				this.CtrlView.StairCategoryAddView(true);
+				//$(":text").focus();
+			}.bind(this);
+				//点击新建子类目产生的效果
+			this.EventAddCategoryChild=function(m){
+			 	this.CtrlView.IsDisplay(m.ID);
+				//$(":text").focus();
+			}.bind(this);
+			//关闭类目编辑视图
+			this.FuncCategoryClose=function(){
+				this.CtrlView.IsDisplay(0);
+				this.CtrlData.CategoryAdd({});
+				this.CtrlView.StairCategoryAddView(false);
+				this.CtrlView.UpdateCategoryView({});
+				this.AttrCategory([]);
+			};
+			this.EventUpdateCategoryView=function(m){
+				this.CtrlView.UpdateCategoryView(m.ID);
+			}.bind(this);
+			this.EventSelCategory=function(m){
+				// console.log(m,"mmmmmmmmmm");
+				this.FuncGetLoadDataByCategory(m);
+				this.FuncSelCategory(m);
+				this.CheckOne(false);
+				this.CheckTwo(false);
+				this.EventTypeOfChecked();
+				this.EventAttrbOfChecked();
+				this.EventSelNum(m);
+				//var Data=JSON.parse(m.Data);
+				//if(this.ApproveBrand_i[Data.Category.ID]()>0&&Data.Category.Child==undefined){
+				//	tone.views.FuncAddTip('子类目存在待审核的品牌');
+				//}
+			}.bind(this);
+			this.EventSelNum = function (m) {
+				var params={'sort':'-CreateDate'};
+				var tmp=[1]
+				params.filter=[];
+				params.filter.push({'Status__in':"'"+tmp.join("','")+"'"})
+				params.filter.push({"categoryid__exact":m.ID});
+				params.filter=JSON.stringify(params.filter);
+				this.FuncGetAllData("brand",params,function(data){
+					k = data.length;
+					if (k>0) {
+						this.NumOfTips1(k);
+						this.CheckOne(true);
+					}
+				}.bind(this));
+
+				var params={'sort':'-ID'};
+				var tmp=[1]
+				params.filter=[];
+				params.filter.push({'Status__in':"'"+tmp.join("','")+"'"})
+				params.filter.push({"categoryid__exact":m.ID});
+				params.filter=JSON.stringify(params.filter);
+				this.FuncGetAllData("attributename",params,function(data){
+					k = data.length;
+					if (k>0) {
+						this.NumOfTips2(k);
+						this.CheckTwo(true);
+					}
+				}.bind(this));
+			}.bind(this);
+			this.FuncSelCategory=function(m){
+				this.AttrCategory([]);
+				this.ui_display(m.ID);
+				var dataCategory=JSON.parse(m.UI_Data());
+				var temp;
+				if(dataCategory.Category!=undefined){
+					this.AttrCategory.push({Name:dataCategory.Category.Name})
+					if(dataCategory.Category.Child!=undefined){
+						this.AttrCategory.push({Name:dataCategory.Category.Child.Name});
+						if(dataCategory.Category.Child.Child!=undefined){
+							this.AttrCategory.push({Name:dataCategory.Category.Child.Child.Name});
+						}
+					}
+				}
+			}
+			this.EventSaveStairCategory=function(m,e){
+				var data_name=$.trim(this.CtrlData.CategoryAdd().Name);
+				if(data_name==''||data_name==undefined){
+					tone.views.FuncAddTip("类目名称不能为空!");
+					this.FuncCategoryClose();
+					return;
+				}
+				var params={};
+				params.Name=data_name;
+				params.ParentID='';
+				params.IsParentID=true;
+				params.EnableStatus = 1
+				//params.Admin=true;
+				this.FuncSave('category',params,function(data){
+					var params={};
+					var temp=JSON.parse(data)
+					params.ID=temp[0].ID;
+					var kemp={Category:{ID:temp[0].ID,Name:data_name}}
+					params.Data=JSON.stringify(kemp);
+					this.FuncUpdate('category',params,function(data){
+
+						var  Category_obj = {
+								UI_Name:ko.observable(data_name),
+								Name:data_name,
+								ID:temp[0].ID,
+								Data:params.Data,
+								UI_Data:ko.observable(params.Data),
+								UI_Children:ko.observableArray([]),
+								UI_Expand:ko.observable(false),
+								ParentID:'',
+								EnableStatus:0,
+								sel:ko.observable({}),
+								Brand:ko.observableArray([]),
+								ABNList:ko.observableArray([]),
+								ApproveBrand:ko.observableArray([]),
+								ApproveAttr:ko.observableArray([]),
+						}
+
+						var list = []
+						list.push(Category_obj)
+						var tmp=this.CtrlData.category();
+						$.merge(tmp,this.FuncMakeTreeData(list));
+						this.CtrlData.category(tmp)
+						this.ApproveBrand_i[Category_obj.ID](0);
+						this.ApproveAttr_i[Category_obj.ID](0);
+
+						//this.FuncInit();
+						this.FuncCategoryClose();
+					}.bind(this))
+				}.bind(this));
+			}.bind(this);
+
+			//启用或禁用品牌
+			this.EvenEnableOrNo = function(m,e,type){
+				// console.log(m,"ddddddd")
+				var params={}
+				if(m.EnableStatus!=1){
+					params.EnableStatus = 1;
+					m.EnableStatus = 1;
+					m.UI_EnableStatus(1);
+					// if (type == "brand") {
+					// 	$(e.target).parent().find('button').hide();
+					// 	console.log('1')
+					// }
+				}else{
+					params.EnableStatus = 2;
+					m.EnableStatus = 2;
+					m.UI_EnableStatus(2);
+					if (type == "brand") {
+						$(e.target).parent().find('input').removeAttr('disabled');
+					}
+				}
+				params.ID = m.ID
+				this.FuncUpdate(type,params,function(data){
+				}.bind(this))
+			}.bind(this);
+
+
+			//创建子类目
+			this.EventSaveCategoryChild=function(m,e,parent){
+				var data_name=$.trim(this.CtrlData.CategoryAdd().Name);
+				var params={};
+				params.Name=data_name;
+				params.ParentID=m.ID;
+				//params.Admin=true;
+				if(params.Name==''||params.Name==undefined){
+					tone.views.FuncAddTip("类目名称不能为空!");
+					this.FuncCategoryClose();
+					return;
+				}
+				this.FuncSave('category',params,function(data){
+					var params={};
+					var temp=JSON.parse(data)
+					params.ID=temp[0].ID;
+					//console.log(JSON.parse(m.Data),'kkk333333333',data_name,this.CtrlData.CategoryAdd().Name)
+					var parse1=JSON.parse(m.Data)
+					if(m.ParentID==null||m.ParentID==''||m.ParentID==undefined){
+						//console.log(m.ParentID,'hzj')
+						params.EnableStatus = 1
+						var kemp={Category:{ID:parse1.Category.ID,Name:parse1.Category.Name,Child:{ID:temp[0].ID,Name:data_name}}};
+					}else{
+						params.EnableStatus = 0
+						var kemp={Category:{ID:parse1.Category.ID,Name:parse1.Category.Name,Child:{ID:parse1.Category.Child.ID,Name:parse1.Category.Child.Name,Child:{ID:temp[0].ID,Name:data_name}}}};
+					}
+					//console.log(kemp,'kkk')
+					params.Data=JSON.stringify(kemp);
+					console.log(params.Data,"params.Data")
+					this.FuncUpdate('category',params,function(data){
+						var Category_obj={
+							UI_Name:ko.observable(data_name),
+							Name:data_name,
+							ID:temp[0].ID,
+							Data:JSON.stringify(kemp),
+							UI_Data:ko.observable(JSON.stringify(kemp)),
+							UI_Children:ko.observableArray([]),
+							UI_EnableStatus:ko.observable(0),
+							UI_Expand:ko.observable(false),
+							ParentID:m.ID,
+							Brand:ko.observableArray([]),
+							ABNList:ko.observableArray([]),
+							ApproveBrand:ko.observableArray([]),
+							ApproveAttr:ko.observableArray([]),
+						}
+						m.UI_Expand(true);
+						var list = []
+						list.push(Category_obj)
+						var tmp=m.UI_Children();
+						$.merge(tmp,this.FuncMakeTreeData(list));
+						//console.log(this.FuncMakeTreeData(list),'this.FuncMakeTreeData(list)')
+						m.UI_Children(tmp)
+						this.ApproveBrand_i[Category_obj.ID](0);
+						this.ApproveAttr_i[Category_obj.ID](0);
+						//console.log(m.UI_Children(),m.UI_Children()[0].UI_Children(),"dasddddddddddd",Category_obj.Name)
+						//console.log(Category_obj,'Child')
+
+
+						//m.UI_Expand(true);
+						//m.UI_Children.push(Category_obj);
+
+
+						//this.FuncInit();
+						this.FuncCategoryClose();
+					}.bind(this))
+				}.bind(this));
+			}.bind(this);
+			//更改类目
+			this.EventUpdateCategory=function(m,e,parent){
+				m.UI_Name($.trim(m.UI_Name()));
+				var params={};
+				params.Name=m.UI_Name();
+				params.ID=m.ID;
+				if(m.ParentID==''||m.ParentID==null||m.ParentID==undefined){
+					var kemp={Category:{ID:params.ID,Name:params.Name}}
+				}else{
+					var parse1=JSON.parse(m.UI_Data())
+					if(parent.ParentID!=''){
+						 var kemp={Category:{ID:parse1.Category.ID,Name:parse1.Category.Name,Child:{ID:parse1.Category.Child.ID,Name:parse1.Category.Child.Name,Child:{ID:params.ID,Name:params.Name}}}}
+					}else{
+						var kemp={Category:{ID:parse1.Category.ID,Name:parse1.Category.Name,Child:{ID:params.ID,Name:params.Name}}};
+					}
+				}
+
+				params.Data=JSON.stringify(kemp);
+				//console.log(params.Name,'name')
+				if(params.Name==''||params.Name==undefined){
+					tone.views.FuncAddTip("类目名称不能为空!");
+					this.FuncCategoryClose();
+					return;
+				}
+				this.FuncUpdate('category',params,function(data){
+					this.FuncCategoryClose();
+					m.UI_Data(JSON.stringify(kemp));
+					this.FuncSelCategory(m);
+				}.bind(this))
+			}.bind(this);
+			//删除一级类目
+			this.EventDelStairCategory=function(m,e){
+				if(m.UI_Children().length==0){
+					if(m.Brand().length!=0||m.ABNList().length!=0){
+						tone.views.FuncAddTip("请先删除关联的品牌或者属性数据");
+						return;
+					}
+					this.FuncDel('category',{id:m.ID},function(){
+						this.CtrlData.category.remove(m);
+						//this.AttrTrade([]);
+					}.bind(this))
+				}else{
+					tone.views.FuncAddTip("不能删除");
+				}
+			}.bind(this);
+			//删除子类目
+			this.EventDelChildCategory=function(m,e,parent){
+				//console.log(m.Brand().length);
+				if(m.Brand().length!=0||m.ABNList().length!=0){
+						tone.views.FuncAddTip("请先删除关联的品牌或者属性数据");
+						return;
+				}
+				if(m.UI_Children().length==0){
+					this.FuncDel('category',{id:m.ID},function(){
+						parent.UI_Children.remove(m);
+						this.AttrCategory([]);
+						this.FuncDelRelevance(m);
+						//this.AttrTrade([]);
+					}.bind(this))
+				}else{
+					tone.views.FuncAddTip("不能删除");
+				}
+			}.bind(this);
+			//删除类目关联属性
+			this.FuncDelRelevance=function(m){
+				if(m.ABNList.length!=0){
+					$.each(m.ABNList(),function(k,v){
+						this.FuncDel('attributename',{id:v.ID},function(){
+						}.bind(this));
+					}.bind(this));
+				}
+			}
+			////删除数据函数
+			/*@param params:参数
+			 *@param struct  单据名称
+			*/
+			this.FuncDel=function(struct,params,callback){
+				var url="/common/truedel/"+struct;
+				tone.ajaxJson(url,params,'get',function(data){
+					if(data.success!=undefined&&data.success==true){
+						if($.type(callback)=="function"){
+							callback(data.data)
+						}
+					}else if(data.error!=undefined&&data.error.length>0){
+						tone.views.FuncAddTip(data.error);
+					}
+				}.bind(this));
+			}
+			//修改数据数据函数
+			/*@param params:参数
+			 *@param struct  单据名称
+			*params ID 对应修改的数据ID
+			*/
+			this.FuncUpdate=function(struct,params,callback){
+				var url="/common/update/"+struct+"/"+params.ID;
+				tone.ajaxJson(url,params,'post',function(data){
+					if(data.success!=undefined&&data.success==true){
+						if($.type(callback)=="function"){
+							callback(data.data)
+							//console.log(data)
+						}
+					}else if(data.error!=undefined&&data.error.length>0){
+						tone.views.FuncAddTip(data.error);
+						return;
+					}
+				}.bind(this));
+			}
+			//提交数据到数据库存储函数
+			this.FuncSave=function(struct,params,callback){
+				var url="/common/create/"+struct+"?admin=true";
+				tone.ajaxJson(url,params,'post',function(data){
+					if(data.success!=undefined&&data.success==true){
+						if($.type(callback)=="function"){
+							callback(data.data)
+						}
+					}else if(data.error!=undefined&&data.error.length>0){
+						tone.views.FuncAddTip(data.error);
+					}
+				}.bind(this));
+			}
+			//展开效果
+			this.EventExpand=function(m){
+				m.UI_Expand(!m.UI_Expand());
+			}.bind(this);
+			//品牌
+			this.EventAddBrandView=function(m){
+				this.CtrlView.BrandInput(m.ID);
+			}.bind(this);
+			//关闭品牌创建
+			this.EventCloseBrandInput=function(){
+				this.FuncCloseBrandInput();
+			}.bind(this);
+			this.FuncCloseBrandInput=function(){
+				this.CtrlView.BrandInput(0);
+				this.CtrlData.BrandAdd({});
+			}
+			//
+			this.EventSaveBrand=function(m){
+				var data_name=$.trim(this.CtrlData.BrandAdd().Name);
+				var params={};
+				params.Name=data_name;
+				params.CategoryID=m.ID;
+				//params.Enable=true;
+				params.Status=2;
+				params.EnableStatus = 0
+				//params.Admin=true;
+				//params.Child=m.UI_Category();
+				if(params.Name===''||params.Name===undefined){
+					tone.views.FuncAddTip("品牌名称不能为空!");
+					return;
+				}
+				var temp=false;
+				if(this.CtrlData.brand.data().length>0){
+					$.each(m.Brand(),function(k,v){
+						if(v.Name==params.Name){
+							tone.views.FuncAddTip("此品牌已创建!");
+							temp=true;
+						}
+					}.bind(this));
+				}
+				if(temp==true){
+					this.EventCloseBrandInput();
+					return;
+				}
+				var Brand_obj;
+				this.FuncSave('brand',params,function(data){
+					var toObj=JSON.parse(data);
+					Brand_obj={
+						ID:toObj[0].ID,
+						Name:data_name,
+						Status:0,
+						UI_Status:ko.observable(0),
+						IsSel:ko.observable(false),
+						UI_EnableStatus:ko.observable(0),
+						CompanyName:ko.observable('')
+					}
+					try{
+						m.Brand.push(Brand_obj);
+					}catch(e){console.log(e);}
+				}.bind(this));
+				this.FuncCloseBrandInput();
+			}.bind(this);
+			//获取品牌列表
+			this.FuncGetBrand=function(){
+				//this.HideBrandLast(false);
+				this.CtrlData.brand.data([]);
+				var params={'sort':'-CreateDate'};
+				var tmp=[1];
+				params.filter='[{"Status__in":"'+"'"+tmp.join("','")+"'"+'"}]'
+				this.FuncGetAllData("brand",params,function(data){
+					$.each(data,function(k,v){
+						v.IsShowApp = ko.observable(false);
+						v.UI_EnableStatus = ko.observable(v.EnableStatus);
+						v.CompanyName=ko.observable('');
+						if (this.AttrCateBrandNum[v.CategoryID.ID] == undefined) {
+							this.AttrCateBrandNum[v.CategoryID.ID]=0;
+						}
+						this.AttrCateBrandNum++;
+						$.each(this.CtrlData.ListCompany(),function(k1,v1){
+							if(v.IndexID==v1.ID){
+								v.CompanyName(v1.CompanyName);
+							}
+						}.bind(this))
+					}.bind(this))
+					this.CtrlData.brand.data(data);
+					console.log(this.CtrlData.brand.data(),'brand')
+				}.bind(this));
+			}
+			//根据类目获取品牌、属性
+			this.FuncGetLoadDataByCategory=function(m){
+				//this.HideBrandLast(false);
+				//this.CtrlData.brand.data([]);
+				if(m.IsLoad()==false){
+					m.IsLoad(true);
+				}else{
+					return;
+				}
+				var params={'sort':'-CreateDate'};
+				var tmp=[0,2]
+				params.filter=[];
+				params.filter.push({'status__in':"'"+tmp.join("','")+"'"})
+				params.filter.push({"categoryid__exact":m.ID});
+				params.filter=JSON.stringify(params.filter);
+				this.FuncGetAllData("brand",params,function(data){
+					$.each(data,function(k,v){
+						v.IsShowApp = ko.observable(false);
+						v.UI_EnableStatus = ko.observable(v.EnableStatus);
+						v.CompanyName=ko.observable('');
+						v.UI_Status=ko.observable(v.Status);
+						v.IsSel = ko.observable(false);
+						v.UI_EnableStatus = ko.observable(v.EnableStatus);
+						$.each(this.CtrlData.ListCompany(),function(k1,v1){
+							if(v.IndexID==v1.ID){
+								v.CompanyName(v1.CompanyName);
+							}
+						}.bind(this))
+						m.Brand.push(v);
+					}.bind(this))
+					// console.log(data,"Category Brand")// 内置数据/审核通过数据
+
+					//this.CtrlData.brand.data(data);
+					// console.log(this.CtrlData.brand.data(),'brand')  //dai审核通过数据
+				}.bind(this));
+
+				var params={'sort':'-ID'};
+				var tmp=[0,2]
+				params.filter=[];
+				params.filter.push({'status__in':"'"+tmp.join("','")+"'"})
+				params.filter.push({"categoryid__exact":m.ID});
+				params.filter=JSON.stringify(params.filter);
+				this.FuncGetAllData("attributename",params,function(data){
+					var tmp=[];
+					$.each(data,function(k,v){
+						v.ABVList = ko.observableArray([]);
+						v.CompanyName=ko.observable('')
+						tmp.push(v.ID);
+						v.UI_Status=ko.observable(v.Status);
+						v.IsSel = ko.observable(false);
+						v.UI_EnableStatus = ko.observable(v.EnableStatus);
+						$.each(this.CtrlData.ListCompany(),function(k1,v1){
+							if(v.IndexID==v1.ID){
+								v.CompanyName(v1.CompanyName);
+							}
+						})
+						m.ABNList.push(v);
+						this.CtrlData.ABNList.push(v);
+					}.bind(this))
+					this.FuncGetABV(tmp);
+					// console.log(data,"Category AttributeName")
+
+					//this.CtrlData.brand.data(data);
+					//console.log(this.CtrlData.brand.data(),'brand')
+				}.bind(this));
+			}.bind(this);
+
+			this.EventCheckUpdate0 = function (m, e) {
+				if (m.EnableStatus==1) {
+					$(e.target).attr('disabled', true);
+				} else {
+					$(e.target).attr('disabled', false)
+				}
+			}
+			//更改品牌
+			this.EventUpdateBrand=function(m,e,parent){
+				console.log(m)
+				var params={};
+				params.Name=m.Name;
+				params.ID=m.ID;
+				//params.Status=2;
+				//m.UI_Status(2);
+				//console.log(m,"aaaaaaaaa")
+				if(params.Name==''||params.Name==undefined){
+					tone.views.FuncAddTip("品牌名称不能为空!");
+					this.FuncInit();
+					return;
+				}
+				var temp=false;
+				if(this.CtrlData.brand.data().length>0){
+					var i=0;
+					$.each(this.CtrlData.brand.data(),function(k,v){
+						if(v.Name==params.Name){
+							i++;
+						}
+					}.bind(this));
+					if(i==2){
+						tone.views.FuncAddTip("此品牌已创建!");
+						temp=true;
+					}
+				}
+				if(temp==true){
+					return;
+				}
+				//params.CategoryID=m.UI_Category().ID;
+				this.FuncUpdate('brand',params,function(data){
+				}.bind(this))
+			}.bind(this);
+			//审核属性
+			this.EventApproveAttr=function(m,e,parent){
+				var params={};
+				params.Name=m.Name;
+				params.ID=m.ID;
+				params.Status=2;
+				params.EnableStatus = 1;
+				parent.ApproveAttr.remove(m);
+				this.FuncUpdate('attributename',params,function(data){
+					//this.FuncInit();
+					$('#'+this.CtrlIsShowAppID).hide();
+					var s1 = this.NumOfTips2();
+					var s2 = this.Selemps().length;
+					var s3 = (s1-s2)
+					if (s3 > 0) {
+						this.NumOfTips2(s3)
+					} else {
+						this.CheckTwo(false);
+					}
+					m.UI_EnableStatus(1);
+					m.UI_Status(2);
+					this.Selemps([]);
+					//子类目存在待审核的属性
+					var Data=JSON.parse(parent.Data);
+					//console.log(Data)
+					var i=this.ApproveAttr_i[Data.Category.ID]();
+					i--;
+					this.ApproveAttr_i[Data.Category.ID](i);
+					if(Data.Category.Child!=undefined){
+						var j=this.ApproveAttr_i[Data.Category.Child.ID]();
+						j--;
+						this.ApproveAttr_i[Data.Category.Child.ID](j);
+					}
+				}.bind(this))
+
+			}.bind(this);
+			//驳回属性
+			this.EventRefuteAttr=function(m,e,parent){
+				var s1 = this.NumOfTips2();
+				var s2 = this.Selemps().length;
+				var s3 = (s1-s2)
+				if (s3 > 0) {
+					this.NumOfTips2(s3)
+				} else {
+					this.CheckTwo(false);
+				}
+				var params={};
+				params.Name=m.Name;
+				params.ID=m.ID;
+				params.Status=3;
+				params.ApproveRemark = this.AttrApproveRemark();
+				m.UI_Status(3);
+				parent.ApproveAttr.remove(m);
+				this.Selemps([]);
+				//子类目存在待审核的属性
+				var Data=JSON.parse(parent.Data);
+				//console.log(Data)
+				var i=this.ApproveAttr_i[Data.Category.ID]();
+				i--;
+				this.ApproveAttr_i[Data.Category.ID](i);
+				if(Data.Category.Child!=undefined){
+					var j=this.ApproveAttr_i[Data.Category.Child.ID]();
+					j--;
+					this.ApproveAttr_i[Data.Category.Child.ID](j);
+				}
+				this.FuncUpdate('attributename',params,function(data){
+					parent.ABNList.remove(m);
+					$('#'+this.CtrlRefuteID).hide();
+				}.bind(this));
+			}.bind(this);
+			//审核品牌
+			this.EventApproveBrand=function(m,e,parent){
+				var params={};
+				params.Name=m.Name;
+				params.ID=m.ID;
+				params.Status=2;
+				params.EnableStatus = 1;
+				this.FuncUpdate('brand',params,function(data){
+					//this.FuncInit();
+					$('#'+this.CtrlIsShowAppID).hide();
+					m.UI_Status(2);
+					m.EnableStatus = 1
+					m.UI_EnableStatus(1);
+					parent.ApproveBrand.remove(m);
+					var s1 = this.NumOfTips1();
+					var s2 = this.Selemps().length;
+					var s3 = (s1-s2)
+					if (s3 > 0) {
+						this.NumOfTips1(s3)
+					} else {
+						this.CheckOne(false);
+					}
+					this.Selemps([]);
+					//子类目存在待审核的品牌
+					var Data=JSON.parse(parent.Data);
+					//console.log(Data)
+					var i=this.ApproveBrand_i[Data.Category.ID]();
+					i--;
+					this.ApproveBrand_i[Data.Category.ID](i);
+					if(Data.Category.Child!=undefined){
+						var j=this.ApproveBrand_i[Data.Category.Child.ID]();
+						j--;
+						this.ApproveBrand_i[Data.Category.Child.ID](j);
+					}
+				}.bind(this));
+
+
+				//params.CategoryID=m.UI_Category().ID;
+
+			}.bind(this);
+
+
+			//驳回品牌或者属性
+			this.AttrDataToRefute = ko.observable({m1:'',e1:'',parent1:'',type1:''});
+			this.AttrApproveRemark = ko.observable('');//驳回原因
+			this.CtrlRefuteID = tone.sys.guid();
+			this.EventShowRefute = function(m,e,parent,type){
+				this.AttrDataToRefute({m1:m,e1:e,parent1:parent,type1:type});
+				this.AttrApproveRemark('')
+				$('#'+this.CtrlRefuteID).show();
+			}.bind(this);
+			//不驳回(取消按钮)
+			this.EventCloseRefute = function(m,e,parent){
+				this.AttrDataToRefute({m1:'',e1:'',parent1:'',type1:''});
+				$('#'+this.CtrlRefuteID).hide();
+			}.bind(this);
+			//驳回(确定按钮)
+			this.EventDataToRefute = function(m,e,parent){
+				if(this.AttrApproveRemark()==''){
+					tone.views.FuncAddTip('请输入驳回原因再点击确定');
+					return;
+				}
+				var i = this.AttrDataToRefute().m1.length;
+				var m1 = this.AttrDataToRefute().m1;
+				var e1 = this.AttrDataToRefute().e1;
+				var parent1 = this.AttrDataToRefute().parent1;
+				var type1 = this.AttrDataToRefute().type1;
+				for (var am = 0; am<i; am++) {
+					if(type1[am]=='brand'){
+						this.EventRefuteBrand(m1[am],e1[am],parent1[am]);
+					}
+					if(type1[am]=='attributename'){
+						this.EventRefuteAttr(m1[am],e1[am],parent1[am]);
+					}
+				}
+			}.bind(this);
+
+
+			//驳回品牌
+			this.EventRefuteBrand=function(m,e,parent){
+				var params={};
+				var s1 = this.NumOfTips1();
+				var s2 = this.Selemps().length;
+				var s3 = (s1-s2)
+				if (s3 > 0) {
+					this.NumOfTips1(s3)
+				} else {
+					this.CheckOne(false);
+				}
+				params.Name=m.Name;
+				params.ID=m.ID;
+				params.Status=3;
+				params.ApproveRemark = this.AttrApproveRemark();
+				m.UI_Status(3);
+				parent.ApproveBrand.remove(m);
+				this.Selemps([]);
+				//子类目存在待审核的品牌
+				var Data=JSON.parse(parent.Data);
+				//console.log(Data)
+				var i=this.ApproveBrand_i[Data.Category.ID]();
+				i--;
+				this.ApproveBrand_i[Data.Category.ID](i);
+				if(Data.Category.Child!=undefined){
+					var j=this.ApproveBrand_i[Data.Category.Child.ID]();
+					j--;
+					this.ApproveBrand_i[Data.Category.Child.ID](j);
+				}
+				//params.CategoryID=m.UI_Category().ID;
+				this.FuncUpdate('brand',params,function(data){
+					parent.Brand.remove(m);
+					$('#'+this.CtrlRefuteID).hide();
+				}.bind(this))
+			}.bind(this);
+			//删除品牌
+			this.EventDelBrand=function(m,e,parent){
+				this.FuncDel('brand',{id:m.ID},function(){
+					parent.Brand.remove(m);
+				}.bind(this))
+			}.bind(this);
+			//获取数据函数
+			/*@param params:参数
+			 *@param entityname  单据名称
+			*/
+			this.FuncGetAllData=function(entityname,params,callback){
+				var url="/common/querynoauth/"+entityname+"/0/10000";
+				tone.ajaxJson(url,params,'post',function(data){
+					if(data.success!=undefined&&data.success==true){
+						if(data.data==undefined){data.data=[];}
+							callback(data.data);
+						}else{
+							tone.views.FuncAddTip(data.error);
+						}
+				}.bind(this));
+			}
+			/*%
+			*@ 解析行业树数据为可用数据
+			*@param data:行业树原始数据
+			*@return 可用数据
+			*/
+			//第一级类目所包含子级的申请的品牌数
+		 	this.ApproveBrand_i=ko.observableArray([]);//品牌申请待审核相关
+			var ApproveBrand_ii=0;//品牌申请待审相关
+			var ApproveChildBrand_i=0;//品牌申请待审相关
+			this.ApproveAttr_i=ko.observableArray([]);//属性申请待审核相关
+			var ApproveAttr_ii=0;//属性申请待审相关
+			var ApproveChildAttr_i=0;//属性申请待审相关
+			this.AttrCateBrandNum = ko.observable({});
+			this.AttrCateAttrNum = ko.observable({});
+			this.FuncMakeTreeData=function(data){
+				//行业树限定最多三级
+				var list = [];
+				if(data!=undefined&&data.length>0){
+					$.each(data,function(k,v){
+						v.UI_Children=ko.observableArray([]);
+						v.sel=ko.observable({});
+						//v.UI_BrandNum = ko.observable(this.AttrCateBrandNum(v.ID) || 0);
+						//v.UI_AttrNum = ko.observable(this.AttrCateAttrNum(v.ID || 0));
+						if(v.Children!=undefined&&v.Children.length>0){
+							$.each(v.Children,function(kq,vq){
+								vq.UI_EnableStatus = ko.observable(vq.EnableStatus);
+							}.bind(this));
+							v.UI_Children(this.FuncMakeTreeData(v.Children));
+
+						}
+						/*$.each(v.Children(), function (k, v) {
+							v.UI_BrandNum(v.UI_BrandNum() + item.UI_BrandNum());
+							v.UI_AttrNum(v.UI_AttrNum() + item.UI_AttrNum());
+						})*/
+						v.UI_Data=ko.observable(v.Data);
+						v.Brand=ko.observableArray([]);
+						//是否已加载品牌、属性数据
+						v.IsLoad=ko.observable(false);
+						v.ApproveBrand=ko.observableArray([]);
+						this.ApproveBrand_i[v.ID]=ko.observable(0);
+						$.each(this.CtrlData.brand.data(),function(k1,v1){
+							if(v1.CategoryID.ID==v.ID){
+								v1.UI_Status=ko.observable(v1.Status);
+								v1.IsSel = ko.observable(false);
+								v1.UI_EnableStatus = ko.observable(v1.EnableStatus);
+								v.Brand.push(v1);
+								if(v1.Status==1){
+									v.ApproveBrand.push(v1);
+									ApproveBrand_ii++;
+									ApproveChildBrand_i++;
+								}
+								//console.log(v.Brand())
+							}
+
+						}.bind(this));
+						v.ABNList=ko.observableArray([]);
+						v.ApproveAttr=ko.observableArray([]);
+						this.ApproveAttr_i[v.ID]=ko.observable(0);
+						$.each(this.CtrlData.ABNList(),function(k1,v1){
+							if(v.ID==v1.CategoryID.ID){
+								v1.UI_Status=ko.observable(v1.Status);
+								v1.IsSel = ko.observable(false);
+								v1.UI_EnableStatus = ko.observable(v1.EnableStatus)
+								v.ABNList.push(v1);
+								if(v1.Status==1){
+									v.ApproveAttr.push(v1);
+									ApproveAttr_ii++;
+									ApproveChildAttr_i++;
+								}
+							}
+
+						}.bind(this))
+						//1ji you 2
+						if((v.ParentID!=''||v.ParentID!=undefined)&&(v.Children!=undefined)){
+							this.ApproveBrand_i[v.ID](ApproveChildBrand_i);
+							//console.log("child",this.ApproveBrand_i[v.ID]())
+							ApproveChildBrand_i=0;
+							this.ApproveAttr_i[v.ID](ApproveChildAttr_i);
+							ApproveChildAttr_i = 0;
+						}
+						//1ji wu 2
+						if(v.ParentID==''||v.ParentID==undefined){
+							//console.log('kkkkk',ApproveBrand_ii)
+							this.ApproveBrand_i[v.ID](ApproveBrand_ii);
+							ApproveBrand_ii=0;
+							this.ApproveAttr_i[v.ID](ApproveAttr_ii);
+							ApproveAttr_ii=0;
+						}
+						//v.Category=ko.observableArray([]);
+						v.UI_Expand=ko.observable(false);
+						v.UI_Name=ko.observable(v.Name);
+						list.push(v);
+					}.bind(this))
+				}
+				//console.log(list)
+				return list;
+			};
+			//获取属性列表
+			this.FuncGetABN=function(){
+				this.CtrlData.ABNList([]);
+			//按照ID进行排序输出
+				var params={'sort':'-ID'};
+				var tmp=[1]
+				params.filter='[{"Status__in":"'+"'"+tmp.join("','")+"'"+'"}]'
+				this.FuncGetAllData("attributename",params,function(data){
+					var tmp = [];
+					$.each(data,function(k,v){
+						if (this.AttrCateAttrNum[v.CategoryID.ID] == undefined) {
+							this.AttrCateAttrNum[v.CategoryID.ID]=0;
+						}
+						this.AttrCateAttrNum++;
+						v.ABVList = ko.observableArray([]);
+						v.CompanyName=ko.observable('')
+						tmp.push(v.ID);
+						$.each(this.CtrlData.ListCompany(),function(k1,v1){
+							if(v.IndexID==v1.ID){
+								v.CompanyName(v1.CompanyName);
+							}
+						})
+					}.bind(this));
+					this.FuncGetABV(tmp);
+					this.CtrlData.ABNList(data);
+				}.bind(this))
+			};
+			////获取属性值列表
+			this.FuncGetABV=function(tmp){
+				var params={filter:'[{"AttributeNameid__in":"'+"'"+tmp.join("','")+"'"+'"}]',sort:'-CreateDate'};
+				tone.ajaxJson('/common/querynoauth/attributevalue/0/10000',params,'post',function(data){
+					if(data.success!=undefined&&data.success==true){
+						//console.log(data,"this")
+						this.CtrlData.ABVList(data.data);
+						$.each(this.CtrlData.ABNList(),function(k,v){
+							$.each(this.CtrlData.ABVList(),function(k1,v1){
+								if(v.ID==v1.AttributeNameID.ID){
+									v1.UI_EnableStatus = ko.observable(v1.EnableStatus)
+									v1.UI_ABVName = ko.observable(v1.Name);
+									v1.UI_Key = k;
+									//console.log(k1,v1,"ddddddddd")
+									v.ABVList.push(v1);
+								}
+							}.bind(this));
+						}.bind(this));
+
+					}else{
+						tone.views.FuncAddTip(data.error);
+					}
+				}.bind(this));
+				//console.log(this.CtrlData.ABNList())
+			}.bind(this);
+				//新增保存属性值
+			this.EventSaveABV = function(m,e){
+				//console.log(this.CtrlData.ABVAdd(),"this.CtrlData.ABVAdd()")
+				var e = e||window.event;
+				if(e.keyCode!=13||this.CtrlData.ABVAdd().Name==undefined||this.CtrlData.ABVAdd().Name==''){
+					return;
+				}
+				tone.ajaxJson('/common/create/attributevalue?admin=true',{'Name':this.CtrlData.ABVAdd().Name,'AttributeNameID':m.ID,'CategoryID':this.ui_display(),'EnableStatus':0},'post',function(data){
+					if(data.success!=undefined&&data.success==true){
+						this.CtrlData.ABVAdd({});
+						$.each(this.CtrlData.ABNList(),function(k,v){
+							$.each(JSON.parse(data.data),function(k1,v1){
+								if(v.ID==v1.AttributeNameID){
+									v1.UI_ABVName = ko.observable(v1.Name);
+									v1.EnableStatus = 0;
+									v1.UI_EnableStatus=ko.observable(0);
+									v1.UI_Key = k;
+									//console.log(v1,"dddddddd",v1.UI_ABVName())
+									v.ABVList.push(v1);
+								}
+							}.bind(this));
+						}.bind(this));
+					}else{
+						tone.views.FuncAddTip('保存失败:'+data.error);
+					}
+				}.bind(this));
+			}.bind(this);
+				/* 删除属性信息
+			*@param m.ID 删除目标的ID
+			*/
+			this.EventDelABN=function(m,e,parent){
+					//console.log(m.ABVList(),"this");
+				if(m.ABVList().length!=0){
+					$.each(m.ABVList(),function(k,v){
+						if (v.EnableStatus ==1) {
+							tone.views.FuncAddTip("请禁用 "+m.Name+" 已启用的属性值");
+						} else {
+							/*this.FuncDel('attributevalue',{id:v.ID},function(){
+								m.ABVList.remove(v)*/
+								// tone.views.FuncAddTip("已经删除未启用属性值,请重新删除属性:"+m.Name);
+								tone.views.FuncAddTip("请删除未启用属性值");
+							/*}.bind(this));*/
+						}
+					}.bind(this));
+				} else {
+					this.FuncDel('attributename',{id:m.ID},function(){
+							parent.ABNList.remove(m);
+							tone.views.FuncAddTip("已经删除属性:"+m.Name);
+					}.bind(this));
+				}
+
+			}.bind(this);
+			//删除属性值
+			this.EventDelABV = function(m){
+				tone.ajaxJson('/common/del/attributevalue',{'id':m.ID},'get',function(data){
+					if(data.success!=undefined&&data.success==true){
+						$.each(this.CtrlData.ABNList(),function(k,v){
+							$.each(v.ABVList(),function(k1,v1){
+								if(v1.ID==m.ID){
+									v.ABVList.remove(m);
+								}
+							}.bind(this));
+						}.bind(this));
+					}else{
+						tone.views.FuncAddTip('删除失败'+data.error);
+					}
+				}.bind(this));
+			}.bind(this);
+			//编辑属性视图
+			this.EventAddAttribute=function(){
+				$('#'+this.AttributeViewID).show();
+				this.CtrlView.AttrEditView(false);
+				this.CtrlData.ABNAdd({});
+				this.CtrlData.IsSKU(false);
+				this.CtrlData.IsSPU(false);
+				this.CtrlData.IsColor(false);
+				this.CtrlData.IsNeed(false);
+				this.CtrlData.IsSearch(false);
+				this.AttrRadio(0);
+				this.CtrlData.RelatedPicture(false);
+			}.bind(this);
+			//关闭编辑属性视图
+			this.FuncCloseAttribute=function(){
+				$('#'+this.AttributeViewID).hide();
+				//this.AddAttributeView(false);
+			}
+			this.EventCloseAttribute=function(){
+				this.FuncCloseAttribute();
+			}.bind(this);
+			//单选框选择事件
+			this.EventRadio1=function(){
+				this.AttrRadio(0);
+			}.bind(this);
+			this.EventRadio2=function(){
+				this.AttrRadio(1);
+			}.bind(this);
+			this.EventRadio3=function(){
+				this.AttrRadio(2);
+			}.bind(this);
+			//保存与更新属性
+			this.EventSaveABN=function(){
+				var params={};
+				params.Name=this.CtrlData.ABNAdd().Name;
+				//console.log(this.CtrlData.ABNAdd().Name);
+				params.CategoryID=this.ui_display();
+				params.IsColor=this.CtrlData.IsColor();
+				params.IsSPU=this.CtrlData.IsSPU();
+				params.IsSKU=this.CtrlData.IsSKU();
+				params.IsNeed=this.CtrlData.IsNeed();
+				if(this.AttrRadio()==0){
+					params.IsEnum=true;
+					params.IsInput=false;
+					params.IsMulti=false;
+				}
+				if(this.AttrRadio()==1){
+					params.IsEnum=false;
+					params.IsInput=true;
+					params.IsMulti=false;
+				}
+				if(this.AttrRadio()==2){
+					params.IsEnum=false;
+					params.IsInput=false;
+					params.IsMulti=true;
+				}
+				//params.Status=this.AttrRadio();
+				params.RelatedPicture=this.CtrlData.RelatedPicture();
+				params.IsSearch=this.CtrlData.IsSearch();
+				if(params.Name==''||params.Name==undefined){
+					tone.views.FuncAddTip("属性名称不能为空!");
+					return;
+				}
+
+				if(this.CtrlView.AttrEditView()==false){
+					var returnABN=false;
+					$.each(this.CtrlData.ABNList(),function(k,v){
+						if(v.CategoryID.ID==this.ui_display()&&v.Name==params.Name){
+							tone.views.FuncAddTip("该属性已存在!");
+							returnABN=true;
+						}
+						if(v.CategoryID==this.ui_display()&&v.Name==params.Name){
+							tone.views.FuncAddTip("该属性已存在!");
+							returnABN=true;
+						}
+					}.bind(this));
+					if(returnABN==true){
+						return;
+					}
+					this.FuncSave('attributename',params,function(data){
+						this.FuncCloseAttribute();
+						var Attr_obj=JSON.parse(data);
+					//	console.log(Attr_obj)
+						$.each(Attr_obj,function(k,v){
+							v.ABVList = ko.observableArray([]);
+							v.CompanyName=ko.observable('');
+						}.bind(this));
+						$.each(this.CtrlData.category(),function(k,v){
+							$.each(Attr_obj,function(k1,v1){
+								if(v.ID==v1.CategoryID){
+									v1.UI_Status=ko.observable(0);
+									v1.UI_EnableStatus = ko.observable(0);
+									v1.IsSel = ko.observable(false);
+
+									try {
+										v.ABNList.push(v1);
+										this.CtrlData.ABNList.push(v1);
+									} catch(e) {console.log(e)}
+								}
+							}.bind(this));
+							$.each(v.UI_Children(),function(k2,v2){
+								$.each(Attr_obj,function(k1,v1){
+									if(v2.ID==v1.CategoryID){
+										v1.UI_Status=ko.observable(0);
+										v1.UI_EnableStatus = ko.observable(0);
+										v1.IsSel = ko.observable(false);
+										try {
+											v2.ABNList.push(v1);
+											this.CtrlData.ABNList.push(v1);
+										} catch(e) {console.log(e)}
+									}
+								}.bind(this));
+								$.each(v2.UI_Children(),function(k3,v3){
+									$.each(Attr_obj,function(k1,v1){
+										if(v3.ID==v1.CategoryID){
+											v1.UI_Status=ko.observable(0);
+											v1.UI_EnableStatus = ko.observable(0);
+											v1.IsSel = ko.observable(false);
+											try {
+												v3.ABNList.push(v1);
+												this.CtrlData.ABNList.push(v1);
+											} catch(e) {console.log(e)}
+										}
+									}.bind(this));
+								}.bind(this));
+							}.bind(this));
+						}.bind(this));
+						//console.log(this.CtrlData.category());
+					}.bind(this));
+				}else{
+					params.ID=this.CtrlData.ABNAdd().ID;
+					var returnABN=false;
+					$.each(this.CtrlData.ABNList(),function(k,v){
+						if(v.CategoryID.ID==this.ui_display()&&v.Name==params.Name&&params.ID!=v.ID){
+							tone.views.FuncAddTip("该属性已存在!");
+							returnABN=true;
+						}
+					}.bind(this));
+					if(returnABN==true){
+						return;
+					}
+					this.FuncUpdate('attributename',params,function(data){
+						this.FuncCloseAttribute();
+						this.FuncInit();
+					}.bind(this))
+				}
+			}.bind(this);
+			//编辑属性
+			this.EventUpdateABNView=function(m,e){
+				//console.log(m,"jjj")
+				//console.log(m.IsSKU)
+				$('#'+this.AttributeViewID).show();
+				//this.AddAttributeView(true);
+				this.CtrlView.AttrEditView(true);
+				this.CtrlData.ABNAdd(m);
+				this.CtrlData.IsSKU(this.FuncToBool(m.IsSKU));
+				this.CtrlData.IsSPU(this.FuncToBool(m.IsSPU));
+				this.CtrlData.IsColor(this.FuncToBool(m.IsColor));
+				this.CtrlData.IsNeed(this.FuncToBool(m.IsNeed));
+				this.CtrlData.IsSearch(this.FuncToBool(m.IsSearch));
+				this.CtrlData.RelatedPicture(this.FuncToBool(m.RelatedPicture));
+				if(this.FuncToBool(m.IsEnum)){
+					this.AttrRadio(0);
+				}
+				if(this.FuncToBool(m.IsInput)){
+					this.AttrRadio(1);
+				}
+				if(this.FuncToBool(m.IsMulti)){
+					this.AttrRadio(2);
+				}
+				//console.log(this.CtrlData.IsSearch())
+			}.bind(this);
+			//转换类型
+			this.FuncToBool=function(string_i){
+				//console.log(string_i,'this','ff'=='i',string_i=='true')
+				if(string_i=="false"){
+					return false;
+				}else if(string_i=="true"){
+					return true;
+				}else{
+					return string_i;
+				}
+			}
+			/*
+			*@ 类目初始化
+			*/
+			this.FuncGetCategoryInit=function(){
+				//初始化类目%
+				this.CtrlData.category([]);
+				this.FuncGetCategory(function(data){
+					this.CtrlData.category(this.FuncMakeTreeData(data.data));
+					//console.log('hzj111111',this.CtrlData.category());
+				}.bind(this));
+			}
+				/*
+			*@see 获取类目树|单独的获取方法
+			*@param callback:获取成功的回调函数
+			*/
+			this.FuncGetCategory=function(callback){
+				var url='/store/category/gettree';
+				var params={'sort':'-Name'};
+				tone.ajaxJson(url,params,'get',function(data){
+					if(data.success==true&&data.data){
+						try{
+							if($.type(callback)=="function"){
+								callback(data);
+								// alert(234)
+							}
+						}catch(e){tone.views.FuncAddTip(e);
+						}
+					}else{
+						tone.views.FuncAddTip(data.error);
+					}
+				}.bind(this));
+			};
+			//获取公司列表数据
+			/*@param params:参数
+			*/
+			this.FuncGetAllCompany=function(skip){
+				var url="/common/querynoauth/organize/0/10000";
+				var params={sort:"-id",fields:"id,CompanyName"};
+				tone.ajaxJson(url,params,'post',function(data){
+					if(data.success!=undefined&&data.success==true){
+						if(data.data==undefined){data.data=[];}
+						this.CtrlData.ListCompany(data.data);
+						//console.log(this.CtrlData.ListCompany())
+						//获取品牌
+						this.FuncGetBrand();
+						//获取属性
+						this.FuncGetABN();
+					}else{
+						//获取品牌
+						this.FuncGetBrand();
+						//获取属性
+						this.FuncGetABN();
+					}
+				}.bind(this));
+			}
+			this.FuncInit=function(){
+				this.FuncGetAllCompany();
+				this.FuncCloseBrandInput();
+				this.FuncGetCategoryInit();
+				this.CtrlData.CategoryAdd({});
+			};
+				//初始化页面
+			this.Views=function(){
+				this.FuncInit();
+			};
+			this.Bindings=function(ctrl){
+				ko.applyBindings(this,ctrl);
+				//console.log(ctrl)
+				this.Views();
+			};
+
+			/*
+			*2017 3-17
+			*scb create
+			*/
+			this.ChooseNum = ko.observable(0);
+			this.ChooseNumAttrb = ko.observable(0);
+			this.Selemps = ko.observableArray([]);
+			this.Selemp = ko.observable({
+				m1: '',
+				e1: '',
+				parent1: '',
+				type1: ''
+			});
+			this.ChooseNumAttrb1 = ko.observable(0);
+			this.ChooseNum1 = ko.observable(0);
+			this.EventTypeOfChecked = function () {
+				this.ChooseNum(1);
+				this.ChooseNum1(0);
+				$('#TypeId1').addClass('second-nav-current');
+				$('#TypeId2').removeClass('second-nav-current');
+			};
+			this.EventTypeOfUncheck = function () {
+				this.ChooseNum(0);
+				this.ChooseNum1(1);
+				$('#TypeId2').addClass('second-nav-current');
+				$('#TypeId1').removeClass('second-nav-current');
+			};
+			this.EventAttrbOfChecked = function () {
+				this.ChooseNumAttrb(1);
+				this.ChooseNumAttrb1(0);
+				$('#TypeId3').addClass('second-nav-current');
+				$('#TypeId4').removeClass('second-nav-current');
+			};
+			this.EventAttrbOfUnchecked = function () {
+				this.ChooseNumAttrb(0);
+				this.ChooseNumAttrb1(1);
+				$('#TypeId4').addClass('second-nav-current');
+				$('#TypeId3').removeClass('second-nav-current');
+			}
+			this.NumOfTips1 = ko.observable();
+			this.NumOfTips2 = ko.observable();
+			this.CheckOne = ko.observable(false);
+			this.CheckTwo = ko.observable(false);
+			this.EventCheckedItem = function (m, e, parent, type, index) {
+				m.IsSel(m.IsSel()?false:true);
+				if (m.IsSel()) {
+					this.Selemp({
+						m1:m,
+						e1:e,
+						parent1:parent,
+						type1:type
+					});
+					this.Selemps.push(this.Selemp());
+				} else {
+					var sop = m;
+					var itema;
+					$.each(this.Selemps(), function (k, v) {
+						if (v.m1 === sop) {
+							itema = k;
+						}
+					});
+					this.Selemps.splice(itema, 1);
+				}
+				this.AttrShowAppIndex(index());
+			}.bind(this);
+			this.EventAttrbCheck = function (m,e,parent,type, index) {
+				m.IsSel(m.IsSel()?false:true);
+				if (m.IsSel()) {
+					this.Selemp({
+						m1:m,
+						e1:e,
+						parent1:parent,
+						type1:type
+					});
+					this.Selemps.push(this.Selemp());
+				} else {
+					var sop = m;
+					var itema;
+					$.each(this.Selemps(), function (k, v) {
+						if (v.m1 === sop) {
+							itema = k;
+						}
+					});
+					this.Selemps().splice(itema, 1);
+				}
+				this.AttrShowAppIndex(index());
+			}.bind(this);
+		}
+		var module_Manage_Store_BaseBrandV23 = new Module_Manage_Store_BaseBrandV23();
+		module_Manage_Store_BaseBrandV23.Bindings(ctrl[0]);
+</script>
